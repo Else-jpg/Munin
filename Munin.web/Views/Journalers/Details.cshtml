@@ -1,0 +1,66 @@
+﻿@model Munin.web.Models.Journaler
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Journaler</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JournalNb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JournalNb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Afleveret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Afleveret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedieArt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedieArt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Antal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Antal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Regs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Regs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JournalID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

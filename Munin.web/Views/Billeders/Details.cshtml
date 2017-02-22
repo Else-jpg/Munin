@@ -1,0 +1,138 @@
+﻿@model Munin.web.Models.Billeder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Billeder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Journal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Billedindex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Billedindex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numordning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numordning)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ordning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ordning)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CDnr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CDnr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fotograf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fotograf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Format)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Format)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Materiale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Materiale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ophavsret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ophavsret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Klausul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klausul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indlevering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indlevering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journaler.JournalNb)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BilledID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

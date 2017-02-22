@@ -1,0 +1,98 @@
+﻿@model Munin.web.Models.Giver
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Giver</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Journal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Navn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Navn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Att)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Att)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postnr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postnr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.By)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.By)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AflevDato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AflevDato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registrator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registrator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journaler.JournalNb)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GiverID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

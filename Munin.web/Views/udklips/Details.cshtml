@@ -1,0 +1,58 @@
+﻿@model Munin.web.Models.udklip
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>udklip</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mappe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mappe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Overskrift)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Overskrift)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aviskode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aviskode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UdklipsID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

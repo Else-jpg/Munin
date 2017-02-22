@@ -1,0 +1,989 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Munin.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arkivalie">
+          <Key>
+            <PropertyRef Name="ArkivalieID" />
+          </Key>
+          <Property Name="ArkivalieID" Type="int" Nullable="false" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Arkivfondnr" Type="nvarchar" MaxLength="10" />
+          <Property Name="Art" Type="nvarchar" MaxLength="50" />
+          <Property Name="KasseNr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Signatur" Type="nvarchar" MaxLength="1" />
+          <Property Name="Klausul" Type="bit" Nullable="false" />
+          <Property Name="YderAarStart" Type="float" />
+          <Property Name="YderAarSlut" Type="float" />
+          <Property Name="Omfang" Type="nvarchar" MaxLength="10" />
+          <Property Name="AntKort" Type="float" />
+          <Property Name="Indlevering" Type="nvarchar" MaxLength="1" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+          <Property Name="ArkivfondID" Type="int" />
+        </EntityType>
+        <EntityType Name="ArkivFond">
+          <Key>
+            <PropertyRef Name="ArkivfondID" />
+          </Key>
+          <Property Name="ArkivfondID" Type="int" Nullable="false" />
+          <Property Name="ArkivNr" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArkivNavn" Type="nvarchar" MaxLength="100" />
+          <Property Name="ArkivDef" Type="nvarchar" MaxLength="100" />
+          <Property Name="ArkivType" Type="nvarchar" MaxLength="1" />
+          <Property Name="StiftetDay" Type="float" />
+          <Property Name="StiftetMonth" Type="float" />
+          <Property Name="StiftetYear" Type="float" />
+          <Property Name="AfsluttetDay" Type="float" />
+          <Property Name="AfsluttetMonth" Type="float" />
+          <Property Name="AfsluttetYear" Type="float" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postnr" Type="nvarchar" MaxLength="10" />
+          <Property Name="By" Type="nvarchar" MaxLength="100" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Aviser">
+          <Key>
+            <PropertyRef Name="AvisID" />
+          </Key>
+          <Property Name="AvisID" Type="int" Nullable="false" />
+          <Property Name="Aviskode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Avisnavn" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Bibliotek">
+          <Key>
+            <PropertyRef Name="BogID" />
+          </Key>
+          <Property Name="BogID" Type="int" Nullable="false" />
+          <Property Name="Bogkode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="DK5" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ordningsord" Type="nvarchar" MaxLength="100" />
+          <Property Name="Titel" Type="nvarchar" MaxLength="100" />
+          <Property Name="Undertitel" Type="nvarchar" MaxLength="100" />
+          <Property Name="Redaktor" Type="nvarchar" MaxLength="100" />
+          <Property Name="Forfatter" Type="nvarchar" MaxLength="100" />
+          <Property Name="Udgivet" Type="float" />
+          <Property Name="Forlag" Type="nvarchar" MaxLength="50" />
+          <Property Name="Samlemappe" Type="nvarchar" MaxLength="100" />
+          <Property Name="Indlevering" Type="nvarchar" MaxLength="1" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+        </EntityType>
+        <EntityType Name="Billeder">
+          <Key>
+            <PropertyRef Name="BilledID" />
+          </Key>
+          <Property Name="BilledID" Type="int" Nullable="false" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Billedindex" Type="nvarchar" MaxLength="10" />
+          <Property Name="Numordning" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ordning" Type="nvarchar" MaxLength="50" />
+          <Property Name="CDnr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fotograf" Type="nvarchar" MaxLength="100" />
+          <Property Name="Format" Type="nvarchar" MaxLength="50" />
+          <Property Name="Materiale" Type="float" />
+          <Property Name="Placering" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ophavsret" Type="bit" Nullable="false" />
+          <Property Name="Klausul" Type="bit" Nullable="false" />
+          <Property Name="Datering" Type="datetime" />
+          <Property Name="Indlevering" Type="nvarchar" MaxLength="1" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+        </EntityType>
+        <EntityType Name="Giver">
+          <Key>
+            <PropertyRef Name="GiverID" />
+          </Key>
+          <Property Name="GiverID" Type="int" Nullable="false" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="100" />
+          <Property Name="Att" Type="nvarchar" MaxLength="100" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postnr" Type="nvarchar" MaxLength="10" />
+          <Property Name="By" Type="nvarchar" MaxLength="100" />
+          <Property Name="AflevDato" Type="datetime" />
+          <Property Name="Registrator" Type="nvarchar" MaxLength="100" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+        </EntityType>
+        <EntityType Name="Journaler">
+          <Key>
+            <PropertyRef Name="JournalID" />
+          </Key>
+          <Property Name="JournalID" Type="int" Nullable="false" />
+          <Property Name="JournalNb" Type="nvarchar" MaxLength="10" />
+          <Property Name="Afleveret" Type="datetime" />
+          <Property Name="MedieArt" Type="nvarchar" MaxLength="100" />
+          <Property Name="Antal" Type="float" />
+          <Property Name="Regs" Type="float" />
+          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Kirkebog">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="Fornavn" Type="nvarchar" MaxLength="100" />
+          <Property Name="Efternavn" Type="nvarchar" MaxLength="100" />
+          <Property Name="Ind_dato" Type="nvarchar" MaxLength="20" />
+          <Property Name="Kirkehandling" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Kort">
+          <Key>
+            <PropertyRef Name="KortID" />
+          </Key>
+          <Property Name="KortID" Type="int" Nullable="false" />
+          <Property Name="Kortnr" Type="nvarchar" MaxLength="10" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="100" />
+          <Property Name="KortType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Propertion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Udgiver" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateringAar" Type="int" />
+          <Property Name="RevAar" Type="int" />
+          <Property Name="Omraade" Type="nvarchar" MaxLength="100" />
+          <Property Name="Depot" Type="nvarchar" MaxLength="100" />
+          <Property Name="Format" Type="nvarchar" MaxLength="100" />
+          <Property Name="Materiale" Type="nvarchar" MaxLength="100" />
+          <Property Name="Indlevering" Type="nvarchar" MaxLength="1" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+        </EntityType>
+        <EntityType Name="Matrikler">
+          <Key>
+            <PropertyRef Name="MatrikelID" />
+          </Key>
+          <Property Name="MatrikelID" Type="int" Nullable="false" />
+          <Property Name="MatrikelNr" Type="nvarchar" MaxLength="100" />
+          <Property Name="Kilde" Type="nvarchar" MaxLength="100" />
+          <Property Name="Oprettet" Type="nvarchar" MaxLength="10" />
+          <Property Name="Dato" Type="nvarchar" MaxLength="10" />
+          <Property Name="Stamnr" Type="nvarchar" MaxLength="20" />
+          <Property Name="Ejer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bruger" Type="nvarchar" MaxLength="100" />
+          <Property Name="Vejnavn" Type="nvarchar" MaxLength="100" />
+          <Property Name="Vejnr" Type="nvarchar" MaxLength="10" />
+          <Property Name="Sted" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postnr" Type="nvarchar" MaxLength="5" />
+          <Property Name="By" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sekvenser">
+          <Key>
+            <PropertyRef Name="SekvensID" />
+          </Key>
+          <Property Name="SekvensID" Type="int" Nullable="false" />
+          <Property Name="SekvensNr" Type="nvarchar" MaxLength="10" />
+          <Property Name="Journal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Titel" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateringDag" Type="float" />
+          <Property Name="DateringMrd" Type="float" />
+          <Property Name="DateringAar" Type="float" />
+          <Property Name="Kilde" Type="nvarchar" MaxLength="100" />
+          <Property Name="Interviewer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Klausul" Type="bit" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="Indlevering" Type="nvarchar" MaxLength="1" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="JournalID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ILABNew.dbo.SKOLEFIL' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="SKOLEFIL">
+          <Property Name="KODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="SKOLE_NAVN" Type="nvarchar" MaxLength="20" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ILABNew.dbo.Sognegade' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Sognegade">
+          <Property Name="GADENAVN" Type="nvarchar" MaxLength="30" />
+          <Property Name="ARKIVNR" Type="nvarchar" MaxLength="6" />
+        </EntityType>-->
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="udklip">
+          <Key>
+            <PropertyRef Name="UdklipsID" />
+          </Key>
+          <Property Name="UdklipsID" Type="int" Nullable="false" />
+          <Property Name="Mappe" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overskrift" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datering" Type="nvarchar" MaxLength="20" />
+          <Property Name="Aviskode" Type="nvarchar" MaxLength="5" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Initials" Type="nvarchar" MaxLength="10" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserPwd" Type="nvarchar" MaxLength="100" />
+          <Property Name="Accesslevel" Type="float" />
+        </EntityType>
+        <Association Name="FK_Arkivalie_ArkivFond">
+          <End Role="ArkivFond" Type="Self.ArkivFond" Multiplicity="0..1" />
+          <End Role="Arkivalie" Type="Self.Arkivalie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArkivFond">
+              <PropertyRef Name="ArkivfondID" />
+            </Principal>
+            <Dependent Role="Arkivalie">
+              <PropertyRef Name="ArkivfondID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arkivalie_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Arkivalie" Type="Self.Arkivalie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Arkivalie">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bibliotek_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Bibliotek" Type="Self.Bibliotek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Bibliotek">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Billeder_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Billeder" Type="Self.Billeder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Billeder">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giver_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Giver" Type="Self.Giver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Giver">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kort_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Kort" Type="Self.Kort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Kort">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sekvenser_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Sekvenser" Type="Self.Sekvenser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Sekvenser">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MuninModelsStoreContainer">
+          <EntitySet Name="Arkivalie" EntityType="Self.Arkivalie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArkivFond" EntityType="Self.ArkivFond" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aviser" EntityType="Self.Aviser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bibliotek" EntityType="Self.Bibliotek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Billeder" EntityType="Self.Billeder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giver" EntityType="Self.Giver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journaler" EntityType="Self.Journaler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kirkebog" EntityType="Self.Kirkebog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kort" EntityType="Self.Kort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matrikler" EntityType="Self.Matrikler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sekvenser" EntityType="Self.Sekvenser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="udklip" EntityType="Self.udklip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Arkivalie_ArkivFond" Association="Self.FK_Arkivalie_ArkivFond">
+            <End Role="ArkivFond" EntitySet="ArkivFond" />
+            <End Role="Arkivalie" EntitySet="Arkivalie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arkivalie_Journaler" Association="Self.FK_Arkivalie_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Arkivalie" EntitySet="Arkivalie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bibliotek_Journaler" Association="Self.FK_Bibliotek_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Bibliotek" EntitySet="Bibliotek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Billeder_Journaler" Association="Self.FK_Billeder_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Billeder" EntitySet="Billeder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giver_Journaler" Association="Self.FK_Giver_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Giver" EntitySet="Giver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kort_Journaler" Association="Self.FK_Kort_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Kort" EntitySet="Kort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sekvenser_Journaler" Association="Self.FK_Sekvenser_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Sekvenser" EntitySet="Sekvenser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Munin.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arkivalie">
+          <Key>
+            <PropertyRef Name="ArkivalieID" />
+          </Key>
+          <Property Name="ArkivalieID" Type="Int32" Nullable="false" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Arkivfondnr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Art" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KasseNr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Signatur" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Klausul" Type="Boolean" Nullable="false" />
+          <Property Name="YderAarStart" Type="Double" />
+          <Property Name="YderAarSlut" Type="Double" />
+          <Property Name="Omfang" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AntKort" Type="Double" />
+          <Property Name="Indlevering" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <Property Name="ArkivfondID" Type="Int32" />
+          <NavigationProperty Name="ArkivFond" Relationship="Self.FK_Arkivalie_ArkivFond" FromRole="Arkivalie" ToRole="ArkivFond" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Arkivalie_Journaler" FromRole="Arkivalie" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="ArkivFond">
+          <Key>
+            <PropertyRef Name="ArkivfondID" />
+          </Key>
+          <Property Name="ArkivfondID" Type="Int32" Nullable="false" />
+          <Property Name="ArkivNr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArkivNavn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ArkivDef" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ArkivType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="StiftetDay" Type="Double" />
+          <Property Name="StiftetMonth" Type="Double" />
+          <Property Name="StiftetYear" Type="Double" />
+          <Property Name="AfsluttetDay" Type="Double" />
+          <Property Name="AfsluttetMonth" Type="Double" />
+          <Property Name="AfsluttetYear" Type="Double" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postnr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Arkivalie" Relationship="Self.FK_Arkivalie_ArkivFond" FromRole="ArkivFond" ToRole="Arkivalie" />
+        </EntityType>
+        <EntityType Name="Aviser">
+          <Key>
+            <PropertyRef Name="AvisID" />
+          </Key>
+          <Property Name="AvisID" Type="Int32" Nullable="false" />
+          <Property Name="Aviskode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Avisnavn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Bibliotek">
+          <Key>
+            <PropertyRef Name="BogID" />
+          </Key>
+          <Property Name="BogID" Type="Int32" Nullable="false" />
+          <Property Name="Bogkode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DK5" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ordningsord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Titel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Undertitel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Redaktor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Forfatter" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Udgivet" Type="Double" />
+          <Property Name="Forlag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Samlemappe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Indlevering" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Bibliotek_Journaler" FromRole="Bibliotek" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="Billeder">
+          <Key>
+            <PropertyRef Name="BilledID" />
+          </Key>
+          <Property Name="BilledID" Type="Int32" Nullable="false" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Billedindex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Numordning" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ordning" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CDnr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fotograf" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Format" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Materiale" Type="Double" />
+          <Property Name="Placering" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ophavsret" Type="Boolean" Nullable="false" />
+          <Property Name="Klausul" Type="Boolean" Nullable="false" />
+          <Property Name="Datering" Type="DateTime" Precision="3" />
+          <Property Name="Indlevering" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Billeder_Journaler" FromRole="Billeder" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="Giver">
+          <Key>
+            <PropertyRef Name="GiverID" />
+          </Key>
+          <Property Name="GiverID" Type="Int32" Nullable="false" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Navn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Att" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postnr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AflevDato" Type="DateTime" Precision="3" />
+          <Property Name="Registrator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Giver_Journaler" FromRole="Giver" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="Journaler">
+          <Key>
+            <PropertyRef Name="JournalID" />
+          </Key>
+          <Property Name="JournalID" Type="Int32" Nullable="false" />
+          <Property Name="JournalNb" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Afleveret" Type="DateTime" Precision="3" />
+          <Property Name="MedieArt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Antal" Type="Double" />
+          <Property Name="Regs" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Arkivalie" Relationship="Self.FK_Arkivalie_Journaler" FromRole="Journaler" ToRole="Arkivalie" />
+          <NavigationProperty Name="Bibliotek" Relationship="Self.FK_Bibliotek_Journaler" FromRole="Journaler" ToRole="Bibliotek" />
+          <NavigationProperty Name="Billeder" Relationship="Self.FK_Billeder_Journaler" FromRole="Journaler" ToRole="Billeder" />
+          <NavigationProperty Name="Giver" Relationship="Self.FK_Giver_Journaler" FromRole="Journaler" ToRole="Giver" />
+          <NavigationProperty Name="Kort" Relationship="Self.FK_Kort_Journaler" FromRole="Journaler" ToRole="Kort" />
+          <NavigationProperty Name="Sekvenser" Relationship="Self.FK_Sekvenser_Journaler" FromRole="Journaler" ToRole="Sekvenser" />
+        </EntityType>
+        <EntityType Name="Kirkebog">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="Fornavn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Efternavn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ind_dato" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Kirkehandling" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Kort">
+          <Key>
+            <PropertyRef Name="KortID" />
+          </Key>
+          <Property Name="KortID" Type="Int32" Nullable="false" />
+          <Property Name="Kortnr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Navn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KortType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Propertion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Udgiver" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateringAar" Type="Int32" />
+          <Property Name="RevAar" Type="Int32" />
+          <Property Name="Omraade" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Depot" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Format" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Materiale" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Indlevering" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Kort_Journaler" FromRole="Kort" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="Matrikler">
+          <Key>
+            <PropertyRef Name="MatrikelID" />
+          </Key>
+          <Property Name="MatrikelID" Type="Int32" Nullable="false" />
+          <Property Name="MatrikelNr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Kilde" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Oprettet" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Dato" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Stamnr" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Ejer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Bruger" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Vejnavn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Vejnr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Sted" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postnr" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="By" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sekvenser">
+          <Key>
+            <PropertyRef Name="SekvensID" />
+          </Key>
+          <Property Name="SekvensID" Type="Int32" Nullable="false" />
+          <Property Name="SekvensNr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Journal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Titel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateringDag" Type="Double" />
+          <Property Name="DateringMrd" Type="Double" />
+          <Property Name="DateringAar" Type="Double" />
+          <Property Name="Kilde" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Interviewer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Klausul" Type="Boolean" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Indlevering" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JournalID" Type="Int32" />
+          <NavigationProperty Name="Journaler" Relationship="Self.FK_Sekvenser_Journaler" FromRole="Sekvenser" ToRole="Journaler" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="udklip">
+          <Key>
+            <PropertyRef Name="UdklipsID" />
+          </Key>
+          <Property Name="UdklipsID" Type="Int32" Nullable="false" />
+          <Property Name="Mappe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overskrift" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Datering" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Aviskode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Initials" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPwd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Accesslevel" Type="Double" />
+        </EntityType>
+        <Association Name="FK_Arkivalie_ArkivFond">
+          <End Role="ArkivFond" Type="Self.ArkivFond" Multiplicity="0..1" />
+          <End Role="Arkivalie" Type="Self.Arkivalie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArkivFond">
+              <PropertyRef Name="ArkivfondID" />
+            </Principal>
+            <Dependent Role="Arkivalie">
+              <PropertyRef Name="ArkivfondID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arkivalie_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Arkivalie" Type="Self.Arkivalie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Arkivalie">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bibliotek_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Bibliotek" Type="Self.Bibliotek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Bibliotek">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Billeder_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Billeder" Type="Self.Billeder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Billeder">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giver_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Giver" Type="Self.Giver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Giver">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kort_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Kort" Type="Self.Kort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Kort">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sekvenser_Journaler">
+          <End Role="Journaler" Type="Self.Journaler" Multiplicity="0..1" />
+          <End Role="Sekvenser" Type="Self.Sekvenser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journaler">
+              <PropertyRef Name="JournalID" />
+            </Principal>
+            <Dependent Role="Sekvenser">
+              <PropertyRef Name="JournalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ILABNewEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arkivalie" EntityType="Self.Arkivalie" />
+          <EntitySet Name="ArkivFond" EntityType="Self.ArkivFond" />
+          <EntitySet Name="Aviser" EntityType="Self.Aviser" />
+          <EntitySet Name="Bibliotek" EntityType="Self.Bibliotek" />
+          <EntitySet Name="Billeder" EntityType="Self.Billeder" />
+          <EntitySet Name="Giver" EntityType="Self.Giver" />
+          <EntitySet Name="Journaler" EntityType="Self.Journaler" />
+          <EntitySet Name="Kirkebog" EntityType="Self.Kirkebog" />
+          <EntitySet Name="Kort" EntityType="Self.Kort" />
+          <EntitySet Name="Matrikler" EntityType="Self.Matrikler" />
+          <EntitySet Name="Sekvenser" EntityType="Self.Sekvenser" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="udklip" EntityType="Self.udklip" />
+          <EntitySet Name="UserTbl" EntityType="Self.UserTbl" />
+          <AssociationSet Name="FK_Arkivalie_ArkivFond" Association="Self.FK_Arkivalie_ArkivFond">
+            <End Role="ArkivFond" EntitySet="ArkivFond" />
+            <End Role="Arkivalie" EntitySet="Arkivalie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arkivalie_Journaler" Association="Self.FK_Arkivalie_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Arkivalie" EntitySet="Arkivalie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bibliotek_Journaler" Association="Self.FK_Bibliotek_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Bibliotek" EntitySet="Bibliotek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Billeder_Journaler" Association="Self.FK_Billeder_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Billeder" EntitySet="Billeder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giver_Journaler" Association="Self.FK_Giver_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Giver" EntitySet="Giver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kort_Journaler" Association="Self.FK_Kort_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Kort" EntitySet="Kort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sekvenser_Journaler" Association="Self.FK_Sekvenser_Journaler">
+            <End Role="Journaler" EntitySet="Journaler" />
+            <End Role="Sekvenser" EntitySet="Sekvenser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MuninModelsStoreContainer" CdmEntityContainer="ILABNewEntities2">
+          <EntitySetMapping Name="Arkivalie">
+            <EntityTypeMapping TypeName="Munin.Models.Arkivalie">
+              <MappingFragment StoreEntitySet="Arkivalie">
+                <ScalarProperty Name="ArkivalieID" ColumnName="ArkivalieID" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="Arkivfondnr" ColumnName="Arkivfondnr" />
+                <ScalarProperty Name="Art" ColumnName="Art" />
+                <ScalarProperty Name="KasseNr" ColumnName="KasseNr" />
+                <ScalarProperty Name="Signatur" ColumnName="Signatur" />
+                <ScalarProperty Name="Klausul" ColumnName="Klausul" />
+                <ScalarProperty Name="YderAarStart" ColumnName="YderAarStart" />
+                <ScalarProperty Name="YderAarSlut" ColumnName="YderAarSlut" />
+                <ScalarProperty Name="Omfang" ColumnName="Omfang" />
+                <ScalarProperty Name="AntKort" ColumnName="AntKort" />
+                <ScalarProperty Name="Indlevering" ColumnName="Indlevering" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+                <ScalarProperty Name="ArkivfondID" ColumnName="ArkivfondID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArkivFond">
+            <EntityTypeMapping TypeName="Munin.Models.ArkivFond">
+              <MappingFragment StoreEntitySet="ArkivFond">
+                <ScalarProperty Name="ArkivfondID" ColumnName="ArkivfondID" />
+                <ScalarProperty Name="ArkivNr" ColumnName="ArkivNr" />
+                <ScalarProperty Name="ArkivNavn" ColumnName="ArkivNavn" />
+                <ScalarProperty Name="ArkivDef" ColumnName="ArkivDef" />
+                <ScalarProperty Name="ArkivType" ColumnName="ArkivType" />
+                <ScalarProperty Name="StiftetDay" ColumnName="StiftetDay" />
+                <ScalarProperty Name="StiftetMonth" ColumnName="StiftetMonth" />
+                <ScalarProperty Name="StiftetYear" ColumnName="StiftetYear" />
+                <ScalarProperty Name="AfsluttetDay" ColumnName="AfsluttetDay" />
+                <ScalarProperty Name="AfsluttetMonth" ColumnName="AfsluttetMonth" />
+                <ScalarProperty Name="AfsluttetYear" ColumnName="AfsluttetYear" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Postnr" ColumnName="Postnr" />
+                <ScalarProperty Name="By" ColumnName="By" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aviser">
+            <EntityTypeMapping TypeName="Munin.Models.Aviser">
+              <MappingFragment StoreEntitySet="Aviser">
+                <ScalarProperty Name="AvisID" ColumnName="AvisID" />
+                <ScalarProperty Name="Aviskode" ColumnName="Aviskode" />
+                <ScalarProperty Name="Avisnavn" ColumnName="Avisnavn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bibliotek">
+            <EntityTypeMapping TypeName="Munin.Models.Bibliotek">
+              <MappingFragment StoreEntitySet="Bibliotek">
+                <ScalarProperty Name="BogID" ColumnName="BogID" />
+                <ScalarProperty Name="Bogkode" ColumnName="Bogkode" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="DK5" ColumnName="DK5" />
+                <ScalarProperty Name="Ordningsord" ColumnName="Ordningsord" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="Undertitel" ColumnName="Undertitel" />
+                <ScalarProperty Name="Redaktor" ColumnName="Redaktor" />
+                <ScalarProperty Name="Forfatter" ColumnName="Forfatter" />
+                <ScalarProperty Name="Udgivet" ColumnName="Udgivet" />
+                <ScalarProperty Name="Forlag" ColumnName="Forlag" />
+                <ScalarProperty Name="Samlemappe" ColumnName="Samlemappe" />
+                <ScalarProperty Name="Indlevering" ColumnName="Indlevering" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Billeder">
+            <EntityTypeMapping TypeName="Munin.Models.Billeder">
+              <MappingFragment StoreEntitySet="Billeder">
+                <ScalarProperty Name="BilledID" ColumnName="BilledID" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="Billedindex" ColumnName="Billedindex" />
+                <ScalarProperty Name="Numordning" ColumnName="Numordning" />
+                <ScalarProperty Name="Ordning" ColumnName="Ordning" />
+                <ScalarProperty Name="CDnr" ColumnName="CDnr" />
+                <ScalarProperty Name="Fotograf" ColumnName="Fotograf" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="Materiale" ColumnName="Materiale" />
+                <ScalarProperty Name="Placering" ColumnName="Placering" />
+                <ScalarProperty Name="Ophavsret" ColumnName="Ophavsret" />
+                <ScalarProperty Name="Klausul" ColumnName="Klausul" />
+                <ScalarProperty Name="Datering" ColumnName="Datering" />
+                <ScalarProperty Name="Indlevering" ColumnName="Indlevering" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Giver">
+            <EntityTypeMapping TypeName="Munin.Models.Giver">
+              <MappingFragment StoreEntitySet="Giver">
+                <ScalarProperty Name="GiverID" ColumnName="GiverID" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="Att" ColumnName="Att" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Postnr" ColumnName="Postnr" />
+                <ScalarProperty Name="By" ColumnName="By" />
+                <ScalarProperty Name="AflevDato" ColumnName="AflevDato" />
+                <ScalarProperty Name="Registrator" ColumnName="Registrator" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journaler">
+            <EntityTypeMapping TypeName="Munin.Models.Journaler">
+              <MappingFragment StoreEntitySet="Journaler">
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+                <ScalarProperty Name="JournalNb" ColumnName="JournalNb" />
+                <ScalarProperty Name="Afleveret" ColumnName="Afleveret" />
+                <ScalarProperty Name="MedieArt" ColumnName="MedieArt" />
+                <ScalarProperty Name="Antal" ColumnName="Antal" />
+                <ScalarProperty Name="Regs" ColumnName="Regs" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kirkebog">
+            <EntityTypeMapping TypeName="Munin.Models.Kirkebog">
+              <MappingFragment StoreEntitySet="Kirkebog">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+                <ScalarProperty Name="Efternavn" ColumnName="Efternavn" />
+                <ScalarProperty Name="Ind_dato" ColumnName="Ind_dato" />
+                <ScalarProperty Name="Kirkehandling" ColumnName="Kirkehandling" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kort">
+            <EntityTypeMapping TypeName="Munin.Models.Kort">
+              <MappingFragment StoreEntitySet="Kort">
+                <ScalarProperty Name="KortID" ColumnName="KortID" />
+                <ScalarProperty Name="Kortnr" ColumnName="Kortnr" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="KortType" ColumnName="KortType" />
+                <ScalarProperty Name="Propertion" ColumnName="Propertion" />
+                <ScalarProperty Name="Udgiver" ColumnName="Udgiver" />
+                <ScalarProperty Name="DateringAar" ColumnName="DateringAar" />
+                <ScalarProperty Name="RevAar" ColumnName="RevAar" />
+                <ScalarProperty Name="Omraade" ColumnName="Omraade" />
+                <ScalarProperty Name="Depot" ColumnName="Depot" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="Materiale" ColumnName="Materiale" />
+                <ScalarProperty Name="Indlevering" ColumnName="Indlevering" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matrikler">
+            <EntityTypeMapping TypeName="Munin.Models.Matrikler">
+              <MappingFragment StoreEntitySet="Matrikler">
+                <ScalarProperty Name="MatrikelID" ColumnName="MatrikelID" />
+                <ScalarProperty Name="MatrikelNr" ColumnName="MatrikelNr" />
+                <ScalarProperty Name="Kilde" ColumnName="Kilde" />
+                <ScalarProperty Name="Oprettet" ColumnName="Oprettet" />
+                <ScalarProperty Name="Dato" ColumnName="Dato" />
+                <ScalarProperty Name="Stamnr" ColumnName="Stamnr" />
+                <ScalarProperty Name="Ejer" ColumnName="Ejer" />
+                <ScalarProperty Name="Bruger" ColumnName="Bruger" />
+                <ScalarProperty Name="Vejnavn" ColumnName="Vejnavn" />
+                <ScalarProperty Name="Vejnr" ColumnName="Vejnr" />
+                <ScalarProperty Name="Sted" ColumnName="Sted" />
+                <ScalarProperty Name="Postnr" ColumnName="Postnr" />
+                <ScalarProperty Name="By" ColumnName="By" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sekvenser">
+            <EntityTypeMapping TypeName="Munin.Models.Sekvenser">
+              <MappingFragment StoreEntitySet="Sekvenser">
+                <ScalarProperty Name="SekvensID" ColumnName="SekvensID" />
+                <ScalarProperty Name="SekvensNr" ColumnName="SekvensNr" />
+                <ScalarProperty Name="Journal" ColumnName="Journal" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="DateringDag" ColumnName="DateringDag" />
+                <ScalarProperty Name="DateringMrd" ColumnName="DateringMrd" />
+                <ScalarProperty Name="DateringAar" ColumnName="DateringAar" />
+                <ScalarProperty Name="Kilde" ColumnName="Kilde" />
+                <ScalarProperty Name="Interviewer" ColumnName="Interviewer" />
+                <ScalarProperty Name="Klausul" ColumnName="Klausul" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Indlevering" ColumnName="Indlevering" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Munin.Models.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="udklip">
+            <EntityTypeMapping TypeName="Munin.Models.udklip">
+              <MappingFragment StoreEntitySet="udklip">
+                <ScalarProperty Name="UdklipsID" ColumnName="UdklipsID" />
+                <ScalarProperty Name="Mappe" ColumnName="Mappe" />
+                <ScalarProperty Name="Overskrift" ColumnName="Overskrift" />
+                <ScalarProperty Name="Datering" ColumnName="Datering" />
+                <ScalarProperty Name="Aviskode" ColumnName="Aviskode" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTbl">
+            <EntityTypeMapping TypeName="Munin.Models.UserTbl">
+              <MappingFragment StoreEntitySet="UserTbl">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+                <ScalarProperty Name="Accesslevel" ColumnName="Accesslevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

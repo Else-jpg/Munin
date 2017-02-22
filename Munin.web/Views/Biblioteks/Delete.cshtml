@@ -1,0 +1,136 @@
+﻿@model Munin.web.Models.Bibliotek
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bibliotek</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bogkode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bogkode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Journal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DK5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DK5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ordningsord)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ordningsord)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Undertitel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Undertitel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Redaktor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Redaktor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Forfatter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Forfatter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Udgivet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Udgivet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Forlag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Forlag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Samlemappe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Samlemappe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indlevering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indlevering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Journaler.JournalNb)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Munin.web.Models.Journaler>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JournalNb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Afleveret)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedieArt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Regs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JournalNb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Afleveret)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedieArt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Antal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Regs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.JournalID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.JournalID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.JournalID })
+        </td>
+    </tr>
+}
+
+</table>

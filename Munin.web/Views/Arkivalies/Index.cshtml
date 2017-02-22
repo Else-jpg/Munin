@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Munin.web.Models.Arkivalie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Journal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arkivfondnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Art)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KasseNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Signatur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Klausul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YderAarStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YderAarSlut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Omfang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AntKort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Indlevering)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArkivFond.ArkivNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Arkivfondnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Art)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KasseNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Signatur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klausul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YderAarStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YderAarSlut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Omfang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AntKort)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Indlevering)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArkivFond.ArkivNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journaler.JournalNb)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArkivalieID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArkivalieID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArkivalieID })
+        </td>
+    </tr>
+}
+
+</table>

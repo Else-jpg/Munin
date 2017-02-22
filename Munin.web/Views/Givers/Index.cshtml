@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Munin.web.Models.Giver>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Journal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Navn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Att)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.By)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AflevDato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Registrator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Navn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Att)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.By)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AflevDato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Registrator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journaler.JournalNb)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GiverID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GiverID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GiverID })
+        </td>
+    </tr>
+}
+
+</table>

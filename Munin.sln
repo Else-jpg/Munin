@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munin.web", "Munin.web\Munin.web.csproj", "{D84CBC58-C19B-4DBD-85ED-17F18FE35798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munin.SPA", "Munin.SPA\Munin.SPA.csproj", "{1A8A1B8A-AB00-4AAE-9F3B-D227B4B9A972}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D84CBC58-C19B-4DBD-85ED-17F18FE35798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D84CBC58-C19B-4DBD-85ED-17F18FE35798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D84CBC58-C19B-4DBD-85ED-17F18FE35798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D84CBC58-C19B-4DBD-85ED-17F18FE35798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8A1B8A-AB00-4AAE-9F3B-D227B4B9A972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8A1B8A-AB00-4AAE-9F3B-D227B4B9A972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8A1B8A-AB00-4AAE-9F3B-D227B4B9A972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8A1B8A-AB00-4AAE-9F3B-D227B4B9A972}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

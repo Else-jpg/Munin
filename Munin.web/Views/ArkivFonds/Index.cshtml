@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Munin.web.Models.ArkivFond>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArkivNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArkivNavn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArkivDef)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArkivType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StiftetDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StiftetMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StiftetYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfsluttetDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfsluttetMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfsluttetYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.By)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArkivNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArkivNavn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArkivDef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArkivType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StiftetDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StiftetMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StiftetYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfsluttetDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfsluttetMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfsluttetYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.By)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArkivfondID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArkivfondID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArkivfondID })
+        </td>
+    </tr>
+}
+
+</table>

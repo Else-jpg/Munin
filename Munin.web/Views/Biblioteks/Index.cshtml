@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Munin.web.Models.Bibliotek>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Bogkode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DK5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ordningsord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Undertitel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Redaktor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Forfatter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Udgivet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Forlag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Samlemappe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Indlevering)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bogkode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DK5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ordningsord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Undertitel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Redaktor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Forfatter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Udgivet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Forlag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Samlemappe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Indlevering)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Journaler.JournalNb)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BogID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BogID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BogID })
+        </td>
+    </tr>
+}
+
+</table>
