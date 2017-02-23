@@ -6,6 +6,9 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Munin.web.Models
 {
@@ -14,8 +17,11 @@ namespace Munin.web.Models
     
     public partial class Billeder
     {
+        [Required]
         public int BilledID { get; set; }
         public string Journal { get; set; }
+
+        //[RegularExpression("([bB]{1}.[0-9])", ErrorMessage = "Billededindex skal have formatet B.123456")]
         public string Billedindex { get; set; }
         public string Numordning { get; set; }
         public string Ordning { get; set; }
