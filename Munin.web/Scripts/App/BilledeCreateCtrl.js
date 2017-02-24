@@ -2,6 +2,7 @@
 
     $scope.model = {};
     $scope.model.billedId = 'JensenTonajt';
+    $scope.model.checked = true;
 
     $scope.va1 = '123';
 
@@ -36,7 +37,7 @@
     $scope.dateOptions = {
         formatYear: 'yy',
         startingDay: 1,
-        showWeeks: false
+        showWeeks: false        
 };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'dd-MM-yyyy', 'shortDate'];

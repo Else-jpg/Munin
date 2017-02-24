@@ -5,22 +5,21 @@
     <hr/>
 
     <div asp-net-text-element label="Jensen" model="model.billedId"></div>
-    <div asp-net-check-element label="Jensen" model="model.billedId"></div>
+    <div asp-net-check-element label="Jensen" model="model.checked"></div>
 
     <div class="form-group">
-        <div class="control-label col-md-2">
-            <label>JensenTonajt</label>    
-        </div>
-        <div class="col-md-10">
-            <p>
-                <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+        <div class="row">
+            <div class="control-label col-md-2">
+                <label>JensenTonajt</label>
+            </div>
+            <div class="col-md-10">
+                <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>                
-            </p>
+                </span>
+            </div>
         </div>
     </div>
-
 </div>
 
 
