@@ -11,15 +11,20 @@ namespace Munin.web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/angular.js",
+                        "~/Scripts/angular-ui/select.js",
+                        "~/Scripts/angular-ui/select2.js",
+                        "~/Scripts/angular-filter.js",
+                        "~/Scripts/angular-sanitize.min.js",
                         "~/Scripts/momment.js",
                         "~/Scripts/i18n/angular-locale_da-dk.js",
+                        "~/Scripts/angular-ui/ui-bootstrap.js",
+                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                         "~/Scripts/App/Module.js",
+                        "~/Scripts/App/filters.js",
                         "~/Scripts/App/Udklip.js",
                         "~/Scripts/App/Billeder.js",
                         "~/Scripts/App/BilledeCtrl.js",
                         "~/Scripts/App/BilledeCreateCtrl.js",
-                        "~/Scripts/angular-ui/ui-bootstrap.js",
-                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                         "~/Scripts/datetimepicker.js",
                         "~/Scripts/datetimepicker.templates.js"));
 
@@ -37,10 +42,13 @@ namespace Munin.web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/font-awesome.css",
-                      "~/Content/datetimepicker.css",
-                      "~/Content/site.css"));
+                    "~/Content/bootstrap.css",
+                    "~/Content/font-awesome.css",
+                    "~/Content/datetimepicker.css",
+                    "~/Content/select2.css",
+                    "~/Content/select2-bootstrap.css",
+                    "~/Content/select.css",
+                    "~/Content/site.css"));
         }
     }
 }

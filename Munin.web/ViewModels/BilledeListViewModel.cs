@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Munin.web.ViewModels
 {
-    public class BilledeViewModel
+    public class BilledeListViewModel
     {
         public int Count { get; set; }
 

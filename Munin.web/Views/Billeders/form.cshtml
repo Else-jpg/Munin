@@ -2,18 +2,59 @@
 
 <div class="form-horizontal">
     <h4>Billeder</h4>
-    <hr/>
+    <hr />
 
-    <div asp-net-text-element label="Jensen" model="model.billedId"></div>
-    <div asp-net-check-element label="Jensen" model="model.checked"></div>
+    <div asp-net-text-element label="BilledIndex" model="ctrl.model.billedIndex"></div>
+
+    <div asp-net-text-element label="Numordning" model="ctrl.model.numOrdning"></div>
+    <div asp-net-text-element label="Ordning" model="ctrl.model.ordning"></div>
+    <div asp-net-text-element label="CDnr" model="ctrl.model.cdNr"></div>
+    <div asp-net-text-element label="Fotograf" model="ctrl.model.fotograf"></div>
+    <div asp-net-text-element label="Format" model="ctrl.model.format"></div>
+
+    <div asp-net-check-element label="Klausul" model="ctrl.model.klausul"></div>
+    <div asp-net-check-element label="Ophavsret" model="ctrl.model.ophavsret"></div>
+
 
     <div class="form-group">
         <div class="row">
             <div class="control-label col-md-2">
-                <label>JensenTonajt</label>
+                <label>Materiale</label>
             </div>
             <div class="col-md-10">
-                <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
+                <ui-select ng-model="ctrl.model.materiale" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg materiale">
+                    <ui-select-match placeholder="Vælg et materiale">{{$select.selected.text}}</ui-select-match>
+                    <ui-select-choices repeat="materiale in ctrl.materialer | propsFilter: {value: $select.search, text: $select.search}">
+                        <small>{{materiale.text}}</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="control-label col-md-2">
+                <label>Journal</label>
+            </div>
+            <div class="col-md-10">
+                <ui-select ng-model="ctrl.model.journalId" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg journal">
+                    <ui-select-match placeholder="Vælg en journal">{{$select.selected.text}}</ui-select-match>
+                    <ui-select-choices repeat="journal in ctrl.journaler | propsFilter: {value: $select.search, text: $select.search}">
+                        <small>{{journal.text}}</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="control-label col-md-2">
+                <label>Datering</label>
+            </div>
+            <div class="col-md-10">
+                <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -21,5 +62,11 @@
         </div>
     </div>
 </div>
+
+<div asp-net-text-area label="Note" model="ctrl.model.note"></div>
+
+
+
+
 
 

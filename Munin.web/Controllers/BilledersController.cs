@@ -33,7 +33,7 @@ namespace Munin.web.Controllers
                 using (var dbmunin = new ILABNewEntities2())
                 {
 
-                    int flicks = query.P * query.Size;
+                    int flicks = query.P*query.Size;
 
                     var l = await dbmunin.Billeder.ToListAsync();
 
@@ -42,14 +42,17 @@ namespace Munin.web.Controllers
                         string[] sQuery = query.Q.Split(' ');
                         for (int i = 0; i < sQuery.Length; i++)
                         {
-                            l = l.Where(x => (x.Note != null && x.Billedindex.ToLower().Contains(sQuery[i].ToLower())) ||
-                            (x.Note != null && x.Note.ToLower().Contains(sQuery[i].ToLower())) ||
-                            (x.Numordning != null && x.Numordning.ToLower().Contains(sQuery[i].ToLower())) ||
-                            (x.Placering != null && x.Placering.ToLower().Contains(sQuery[i].ToLower()))).ToList();
+                            l =
+                                l.Where(
+                                    x => (x.Note != null && x.Billedindex.ToLower().Contains(sQuery[i].ToLower())) ||
+                                         (x.Note != null && x.Note.ToLower().Contains(sQuery[i].ToLower())) ||
+                                         (x.Numordning != null && x.Numordning.ToLower().Contains(sQuery[i].ToLower())) ||
+                                         (x.Placering != null && x.Placering.ToLower().Contains(sQuery[i].ToLower())))
+                                    .ToList();
                         }
                     }
 
-                    var column = typeof(Billeder).GetProperty(query.S,
+                    var column = typeof (Billeder).GetProperty(query.S,
                         BindingFlags.SetProperty | BindingFlags.IgnoreCase |
                         BindingFlags.Public | BindingFlags.Instance);
 
@@ -69,10 +72,10 @@ namespace Munin.web.Controllers
                     var pageResult = l.Select(x => new BillederDto()
                     {
                         Id = x.BilledID,
-                        Datering = (x.Datering == null)? "" : x.Datering.Value.ToString("dd-MM-yyyy"),
+                        Datering = (x.Datering == null) ? "" : x.Datering.Value.ToString("dd-MM-yyyy"),
                         Note = x.Note,
                         BilledIndex = x.Billedindex,
-                        TicksDatering = (x.Datering == null)? 0 : x.Datering.Value.Ticks
+                        TicksDatering = (x.Datering == null) ? 0 : x.Datering.Value.Ticks
                     }).Skip(1).Take(query.Size);
 
                     if (l.Count > flicks)
@@ -81,7 +84,7 @@ namespace Munin.web.Controllers
                         {
                             Id = x.BilledID,
                             Datering = (x.Datering == null) ? "" : x.Datering.Value.ToString("dd-MM-yyyy"),
-                            Note = (x.Note.Length > 100)? x.Note.Substring(0,100):x.Note,
+                            Note = (x.Note.Length > 100) ? x.Note.Substring(0, 100) : x.Note,
                             BilledIndex = x.Billedindex,
                             TicksDatering = (x.Datering == null) ? 0 : x.Datering.Value.Ticks
 
@@ -100,10 +103,10 @@ namespace Munin.web.Controllers
                     //        o.ErrorCode = 1;
                     //}
 
-                    var listResult = new BilledeViewModel()
+                    var listResult = new BilledeListViewModel()
                     {
                         Count = l.Count,
-                        Pages = l.Count / query.Size,
+                        Pages = l.Count/query.Size,
                         Data = pageResult.ToList()
                     };
 
@@ -118,6 +121,73 @@ namespace Munin.web.Controllers
             }
         }
 
+
+        public async Task<ActionResult> Load(int id = 0)
+        {
+            var vm = new BilledeVm();
+
+            using (ILABNewEntities2 _db = new ILABNewEntities2())
+            {
+                vm.JournalList =
+                    _db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
+
+                vm.MaterialeList = Utils.SelectListOf<BilledeMateriale>();
+
+
+                if (id > 0)
+                {
+                    var billede = db.Billeder.FirstOrDefault(x => x.BilledID == id);
+                    vm.Model = new Billeder()
+                    {
+                        JournalID = 0,
+                        Materiale = 0
+                    };
+
+                    if (billede != null)
+                    {
+                        vm.Model = new Billeder()
+                        {
+                            BilledID = billede.BilledID,
+                            Billedindex = billede.Billedindex,
+                            CDnr = billede.CDnr,
+                            Datering = billede.Datering,
+                            Format = billede.Format,
+                            Note = billede.Note,
+                            Indlevering = billede.Indlevering,
+                            Fotograf = billede.Fotograf,
+                            Journal = billede.Journal,
+                            JournalID = (billede.JournalID == null) ? 0 : billede.JournalID.Value,
+                            Klausul = billede.Klausul,
+                            Materiale = billede.Materiale,
+                            Ophavsret = billede.Ophavsret,
+                            Numordning = billede.Numordning,
+                            Ordning = billede.Ordning,
+                            Placering = billede.Placering
+                        };
+                    }
+                }
+                else
+                {
+
+                }
+            }
+
+            var result = JsonConvert.SerializeObject(vm, Utils.JsonSettings());
+            return Content(result);
+        }
+
+
+        //[HttpPost]
+        //public async Task<ActionResult> Save(Billeder model)
+        //{
+        //    using (var _db = new ILABNewEntities2())
+        //    {
+        //        if (model.BilledID == 0)
+        //        {
+
+        //        }
+        //    }
+        //}
 
         // GET: Billeders/Details/5
         public ActionResult Details(int? id)
@@ -135,9 +205,15 @@ namespace Munin.web.Controllers
         }
 
         // GET: Billeders/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb");
+            var vm = new BilledeVm();
+            vm.Model = new Billeder();
+            vm.Model.BilledID = 0;
+
+            var materialer = Utils.SelectListOf<BilledeMateriale>();
+            
+            
             return View();
         }
 
