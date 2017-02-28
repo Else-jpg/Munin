@@ -29,6 +29,7 @@
     $scope.initpage = function () {
         var id = angular.element('#id').val();
         $http.get('/billeders/load/' + id).then(function (result) {
+                console.log(result);
                 vm.materialer = result.data.materialeList;
                 vm.journaler = result.data.journalList;
             },

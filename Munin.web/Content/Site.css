@@ -19,6 +19,7 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
+label,
 textarea {
     max-width: 500px;
 }

@@ -37,6 +37,28 @@
             transclustion: true
         }
 })
+.directive("aspNetError",function() {
+    return {
+        template: '<div class="form-group"><div class="row">'
+                + '<div class="control-label col-md-2">'
+                + '</div>'
+                + '<div class="col-md-10">'
+                + '<label ng-show="showMessage()" style="font-size: 20px" class="btn bg-danger text-danger"><i class="glyphicon glyphicon-warning-sign">&nbsp;</i>{{message}}</label>'
+                + '</div>'
+                + '</div>'
+                + '</div>',
+        scope: {
+         message:'@'   
+        },
+        controller: function ($scope) {
+            $scope.showMessage = function() {
+                if ($scope.message == null || $scope.message === '')
+                    return false;
+                return true;
+            }
+        }
+    }        
+})
 .directive("aspNetSelect", function() {
     return {            
             template: '<div class="form-group">'

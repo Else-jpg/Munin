@@ -2,7 +2,9 @@
 
 <div class="form-horizontal">
     <h4>Billeder</h4>
-    <hr />
+    <hr/>
+
+    <div asp-net-error message=""></div>
 
     <div asp-net-text-element label="BilledIndex" model="ctrl.model.billedIndex"></div>
 
@@ -53,17 +55,22 @@
             <div class="control-label col-md-2">
                 <label>Datering</label>
             </div>
-            <div class="col-md-10">
-                <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <input style="width:150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>                    
+                </div>
             </div>
         </div>
     </div>
+
+    <div asp-net-text-area label="Note" model="ctrl.model.note"></div>
+
 </div>
 
-<div asp-net-text-area label="Note" model="ctrl.model.note"></div>
+
 
 
 
