@@ -42,8 +42,11 @@
         template: '<div class="form-group"><div class="row">'
                 + '<div class="control-label col-md-2">'
                 + '</div>'
-                + '<div class="col-md-10">'
-                + '<label ng-show="showMessage()" style="font-size: 20px" class="btn bg-danger text-danger"><i class="glyphicon glyphicon-warning-sign">&nbsp;</i>{{message}}</label>'
+                + '<div class="col-md-10">'                
+                + '<div class="panel panel-danger" ng-show="showMessage()">'
+                + '<div class="panel-heading">'
+                + '<div class="panel-title"><i class="glyphicon glyphicon-warning-sign"></i>&nbsp;{{message}}</div>'
+                + '</div>'
                 + '</div>'
                 + '</div>'
                 + '</div>',

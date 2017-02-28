@@ -4,7 +4,7 @@
     <h4>Billeder</h4>
     <hr/>
 
-    <div asp-net-error message=""></div>
+    <div asp-net-error message="Fejl 40"></div>
 
     <div asp-net-text-element label="BilledIndex" model="ctrl.model.billedIndex"></div>
 
@@ -20,9 +20,9 @@
 
     <div class="form-group">
         <div class="row">
-            <div class="control-label col-md-2">
+            <label class="control-label col-md-2">
                 <label>Materiale</label>
-            </div>
+            </label>
             <div class="col-md-10">
                 <ui-select ng-model="ctrl.model.materiale" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg materiale">
                     <ui-select-match placeholder="Vælg et materiale">{{$select.selected.text}}</ui-select-match>
@@ -36,9 +36,9 @@
 
     <div class="form-group">
         <div class="row">
-            <div class="control-label col-md-2">
+            <label class="control-label col-md-2">
                 <label>Journal</label>
-            </div>
+            </label>
             <div class="col-md-10">
                 <ui-select ng-model="ctrl.model.journalId" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg journal">
                     <ui-select-match placeholder="Vælg en journal">{{$select.selected.text}}</ui-select-match>
@@ -52,28 +52,18 @@
 
     <div class="form-group">
         <div class="row">
-            <div class="control-label col-md-2">
+            <label class="control-label col-md-2">
                 <label>Datering</label>
-            </div>
+            </label>
             <div class="col-md-5">
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <input style="width:150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                        <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
                         <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>                    
                 </div>
             </div>
         </div>
     </div>
-
     <div asp-net-text-area label="Note" model="ctrl.model.note"></div>
-
 </div>
-
-
-
-
-
-
-
-

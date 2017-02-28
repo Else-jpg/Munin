@@ -38,6 +38,14 @@
         });
     }
 
+    $scope.save = function() {
+        $http.post('/billeders/save/', vm.model).then(function(result) {
+            console.log(result);
+        }, function(result) {
+            console.log(result); 
+        });
+    }
+
     vm.person = {};
 
     vm.person.selectedValue = { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States' };
