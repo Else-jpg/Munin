@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -68,10 +69,10 @@ namespace Munin.web.Controllers
                     var pageResult = l.Select(x => new BillederDto()
                     {
                         Id = x.BilledID,
-                        Datering = (x.Datering == null) ? "" : x.Datering.Value.ToString("dd-MM-yyyy"),
+                        Datering = x.Datering.ToString(),
                         Note = x.Note,
                         BilledIndex = x.Billedindex,
-                        TicksDatering = (x.Datering == null) ? 0 : x.Datering.Value.Ticks
+                        TicksDatering = x.Datering.Ticks
                     }).Skip(1).Take(query.Size);
 
                     if (l.Count > flicks)
@@ -79,25 +80,13 @@ namespace Munin.web.Controllers
                         pageResult = l.Select(x => new BillederDto()
                         {
                             Id = x.BilledID,
-                            Datering = (x.Datering == null) ? "" : x.Datering.Value.ToString("dd-MM-yyyy"),
+                            Datering = x.Datering.ToString("dd-MM-yyyy"),
                             Note = (x.Note.Length > 100) ? x.Note.Substring(0, 100) : x.Note,
                             BilledIndex = x.Billedindex,
-                            TicksDatering = (x.Datering == null) ? 0 : x.Datering.Value.Ticks
+                            TicksDatering = (x.Datering == null) ? 0 : x.Datering.Ticks
 
                         }).Skip(flicks).Take(query.Size);
                     }
-
-                    //1971.12.09
-                    //Regex regx = new Regex(@"^([0-9]{4})[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])$");
-
-                    //foreach (var o in pageResult)
-                    //{
-                    //    if (o.Datering == null)
-                    //        continue;
-
-                    //    if (!regx.IsMatch(o.Datering))
-                    //        o.ErrorCode = 1;
-                    //}
 
                     var listResult = new BilledeListViewModel()
                     {
@@ -122,68 +111,90 @@ namespace Munin.web.Controllers
         {
             var vm = new BilledeVm();
 
-            using (ILABNewEntities2 _db = new ILABNewEntities2())
+            try
             {
-                vm.JournalList =
-                    _db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
-
-                vm.MaterialeList = Utils.SelectListOf<BilledeMateriale>();
-
-
-                if (id > 0)
+                using (ILABNewEntities2 _db = new ILABNewEntities2())
                 {
-                    var billede = db.Billeder.FirstOrDefault(x => x.BilledID == id);
-                    vm.Model = new Billeder()
-                    {
-                        JournalID = 0,
-                        Materiale = 0
-                    };
+                    vm.JournalList =
+                        _db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
 
-                    if (billede != null)
+                    vm.MaterialeList = Utils.SelectListOf<BilledeMateriale>();
+                    vm.Model = new Billeder();
+
+
+                    if (id > 0)
                     {
+                        var billede = db.Billeder.FirstOrDefault(x => x.BilledID == id);
                         vm.Model = new Billeder()
                         {
-                            BilledID = billede.BilledID,
-                            Billedindex = billede.Billedindex,
-                            CDnr = billede.CDnr,
-                            Datering = billede.Datering,
-                            Format = billede.Format,
-                            Note = billede.Note,
-                            Indlevering = billede.Indlevering,
-                            Fotograf = billede.Fotograf,
-                            Journal = billede.Journal,
-                            JournalID = (billede.JournalID == null) ? 0 : billede.JournalID.Value,
-                            Klausul = billede.Klausul,
-                            Materiale = billede.Materiale,
-                            Ophavsret = billede.Ophavsret,
-                            Numordning = billede.Numordning,
-                            Ordning = billede.Ordning,
-                            Placering = billede.Placering
+                            JournalID = 0,
+                            Materiale = 0
                         };
+
+                        if (billede != null)
+                        {
+                            vm.Model = new Billeder()
+                            {
+                                BilledID = billede.BilledID,
+                                Billedindex = billede.Billedindex,
+                                CDnr = billede.CDnr,
+                                Datering = billede.Datering,
+                                Format = billede.Format,
+                                Note = billede.Note,
+                                Indlevering = billede.Indlevering,
+                                Fotograf = billede.Fotograf,
+                                Journal = billede.Journal,
+                                JournalID = (billede.JournalID == null) ? 0 : billede.JournalID.Value,
+                                Klausul = billede.Klausul,
+                                Materiale = billede.Materiale,
+                                Ophavsret = billede.Ophavsret,
+                                Numordning = billede.Numordning,
+                                Ordning = billede.Ordning,
+                                Placering = billede.Placering
+                            };
+                        }
+                    }
+                    else
+                    {
+                        var billedindex = _db.Billeder.OrderByDescending(x => x.Billedindex).First().Billedindex;
+                        int bindex = Int32.Parse(billedindex.Split('.')[1]);
+                        bindex++;
+                        vm.Model.Billedindex = "B." + bindex.ToString().PadLeft(4, '0');
+
                     }
                 }
-                else
-                {
 
-                }
+                var result = JsonConvert.SerializeObject(vm, Utils.JsonSettings());
+                return Content(result);
             }
+            catch (Exception ex)
+            {
+                var result = JsonConvert.SerializeObject(ex.Message, Utils.JsonSettings());
+                return Content(result);
 
-            var result = JsonConvert.SerializeObject(vm, Utils.JsonSettings());
-            return Content(result);
+            }
         }
 
 
-        //[HttpPost]
-        //public async Task<ActionResult> Save(Billeder model)
-        //{
-        //    using (var _db = new ILABNewEntities2())
-        //    {
-        //        if (model.BilledID == 0)
-        //        {
+        [HttpPost]
+        public ActionResult Save(Billeder model)
+        {
+            if (ModelState.IsValid)
+                return Json(new {success = true, message = ""});
 
-        //        }
-        //    }
-        //}
+            return Json(new
+            {
+                success = false,
+                message = ModelState.Keys.SelectMany(k => ModelState[k].Errors).First().ErrorMessage
+            });
+
+            //return Json(new
+            //{
+            //    success = false,
+            //    message = ModelState.Keys.SelectMany(k => ModelState[k].Errors).First().ErrorMessage
+            //});
+
+        }
 
         // GET: Billeders/Details/5
         public ActionResult Details(int? id)
@@ -205,10 +216,7 @@ namespace Munin.web.Controllers
         {
             var vm = new BilledeVm();
             vm.Model = new Billeder();
-            vm.Model.BilledID = 0;
-
-            var materialer = Utils.SelectListOf<BilledeMateriale>();
-            
+            vm.Model.BilledID = 0;           
             
             return View();
         }

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Services.Description;
 
 
 namespace Munin.web.Models
@@ -19,20 +20,30 @@ namespace Munin.web.Models
     {
         [Required]
         public int BilledID { get; set; }
+
+        [Required(ErrorMessage = "Journal skal udfyldes")]
         public string Journal { get; set; }
 
-        //[RegularExpression("([bB]{1}.[0-9])", ErrorMessage = "Billededindex skal have formatet B.123456")]
+        [RegularExpression(@"^(?i)B.\d{4}$", ErrorMessage = "Billedindex skal opfylde formatet B.1234")]
         public string Billedindex { get; set; }
+
+        [RegularExpression(@"^\d{2}.\d{2}[a-åA-Å0-9]*$", ErrorMessage = "Numordning skal opfylde formatet 12.34aå")]
         public string Numordning { get; set; }
+
+        //[Required(ErrorMessage = "Der skal vælges en ordning.")]
         public string Ordning { get; set; }
         public string CDnr { get; set; }
         public string Fotograf { get; set; }
         public string Format { get; set; }
+
+        [Required(ErrorMessage = "Der skal vælges materiale til billede.")]
         public Nullable<double> Materiale { get; set; }
         public string Placering { get; set; }
         public bool Ophavsret { get; set; }
         public bool Klausul { get; set; }
-        public Nullable<System.DateTime> Datering { get; set; }
+        
+        [ValidDate(ErrorMessage = "Dateringen er ikke godkendt.")]
+        public DateTime Datering { get; set; }
         public string Indlevering { get; set; }
         public string Note { get; set; }
         public Nullable<int> JournalID { get; set; }

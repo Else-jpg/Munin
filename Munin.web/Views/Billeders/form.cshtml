@@ -4,7 +4,7 @@
     <h4>Billeder</h4>
     <hr/>
 
-    <div asp-net-error message="Fejl 40"></div>
+    <div asp-net-error message={{ctrl.message}}></div>
 
     <div asp-net-text-element label="BilledIndex" model="ctrl.model.billedIndex"></div>
 
@@ -13,9 +13,9 @@
     <div asp-net-text-element label="CDnr" model="ctrl.model.cdNr"></div>
     <div asp-net-text-element label="Fotograf" model="ctrl.model.fotograf"></div>
     <div asp-net-text-element label="Format" model="ctrl.model.format"></div>
-
     <div asp-net-check-element label="Klausul" model="ctrl.model.klausul"></div>
     <div asp-net-check-element label="Ophavsret" model="ctrl.model.ophavsret"></div>
+    <div asp-net-text-element label="placering" model="ctrl.model.placering" placeholder="indtast placering"></div>
 
 
     <div class="form-group">
@@ -24,7 +24,7 @@
                 <label>Materiale</label>
             </label>
             <div class="col-md-10">
-                <ui-select ng-model="ctrl.model.materiale" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg materiale">
+                <ui-select ng-model="ctrl.materiale" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg materiale">
                     <ui-select-match placeholder="Vælg et materiale">{{$select.selected.text}}</ui-select-match>
                     <ui-select-choices repeat="materiale in ctrl.materialer | propsFilter: {value: $select.search, text: $select.search}">
                         <small>{{materiale.text}}</small>
@@ -40,7 +40,7 @@
                 <label>Journal</label>
             </label>
             <div class="col-md-10">
-                <ui-select ng-model="ctrl.model.journalId" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg journal">
+                <ui-select ng-model="ctrl.journal" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg journal">
                     <ui-select-match placeholder="Vælg en journal">{{$select.selected.text}}</ui-select-match>
                     <ui-select-choices repeat="journal in ctrl.journaler | propsFilter: {value: $select.search, text: $select.search}">
                         <small>{{journal.text}}</small>
@@ -66,4 +66,14 @@
         </div>
     </div>
     <div asp-net-text-area label="Note" model="ctrl.model.note"></div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-10">
+                <input type="button" value="Gem" class="btn btn-default" ng-click="save()"/>
+            </div>
+        </div>
+    </div>
+
 </div>

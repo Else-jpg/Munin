@@ -87,4 +87,19 @@ namespace Munin.web
         public int Value { get; set; }
         public string Text { get; set; }
     }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ValidDateAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value == null)
+                return new ValidationResult("Datoen er ikke godkendt.");
+
+            if ((DateTime)value == DateTime.MinValue)
+                return new ValidationResult("Datoen er ikke godkendt.");
+            
+            return ValidationResult.Success;
+        }
+    }
 }
