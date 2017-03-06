@@ -14,13 +14,16 @@ namespace Munin.web.Controllers
 {
     public class BilledersController : Controller
     {
-        private ILABNewEntities2 db = new ILABNewEntities2();
+        //private ILABNewEntities2 db = new ILABNewEntities2();
 
         // GET: Billeders
         public ActionResult Index()
         {
-            var billeder = db.Billeder.Include(b => b.Journaler);
-            return View(billeder.ToList());
+            using (var db = new ILABNewEntities2())
+            {
+                var billeder = db.Billeder.Include(b => b.Journaler);
+                return View(billeder.ToList());
+            }
         }
 
         public async Task<ActionResult> BilledeList(ListQuery query)
@@ -113,10 +116,10 @@ namespace Munin.web.Controllers
 
             try
             {
-                using (ILABNewEntities2 _db = new ILABNewEntities2())
+                using (ILABNewEntities2 db = new ILABNewEntities2())
                 {
                     vm.JournalList =
-                        _db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
+                        db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
 
                     vm.MaterialeList = Utils.SelectListOf<BilledeMateriale>();
                     vm.Model = new Billeder();
@@ -138,7 +141,7 @@ namespace Munin.web.Controllers
                                 BilledID = billede.BilledID,
                                 Billedindex = billede.Billedindex,
                                 CDnr = billede.CDnr,
-                                Datering = billede.Datering,
+                                Datering = billede.Datering.Date,
                                 Format = billede.Format,
                                 Note = billede.Note,
                                 Indlevering = billede.Indlevering,
@@ -156,7 +159,7 @@ namespace Munin.web.Controllers
                     }
                     else
                     {
-                        var billedindex = _db.Billeder.OrderByDescending(x => x.Billedindex).First().Billedindex;
+                        var billedindex = db.Billeder.OrderByDescending(x => x.Billedindex).First().Billedindex;
                         int bindex = Int32.Parse(billedindex.Split('.')[1]);
                         bindex++;
                         vm.Model.Billedindex = "B." + bindex.ToString().PadLeft(4, '0');
@@ -177,38 +180,52 @@ namespace Munin.web.Controllers
 
 
         [HttpPost]
-        public ActionResult Save(Billeder model)
+        public async Task<ActionResult> Save(Billeder model)
         {
-            if (ModelState.IsValid)
-                return Json(new {success = true, message = ""});
+            if (!ModelState.IsValid)
+                return Json(new
+                {
+                    success = false,
+                    message = ModelState.Keys.SelectMany(k => ModelState[k].Errors).First().ErrorMessage
+                });
 
-            return Json(new
+            try
             {
-                success = false,
-                message = ModelState.Keys.SelectMany(k => ModelState[k].Errors).First().ErrorMessage
-            });
-
-            //return Json(new
-            //{
-            //    success = false,
-            //    message = ModelState.Keys.SelectMany(k => ModelState[k].Errors).First().ErrorMessage
-            //});
+                using (var db = new ILABNewEntities2())
+                {
+                    db.Billeder.Add(model);
+                    await db.SaveChangesAsync();
+                    return Json(new {success = true, message = ""});
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
 
         }
 
         // GET: Billeders/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            using (var db = new ILABNewEntities2())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Billeder billeder = db.Billeder.Find(id);
+                if (billeder == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(billeder);
             }
-            Billeder billeder = db.Billeder.Find(id);
-            if (billeder == null)
-            {
-                return HttpNotFound();
-            }
-            return View(billeder);
+
         }
 
         // GET: Billeders/Create
@@ -230,29 +247,35 @@ namespace Munin.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Billeder.Add(billeder);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                using (var db = new ILABNewEntities2())
+                {
+                    db.Billeder.Add(billeder);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
-            ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+            //ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
             return View(billeder);
         }
 
         // GET: Billeders/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            using (var db = new ILABNewEntities2())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Billeder billeder = db.Billeder.Find(id);
+                if (billeder == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+                return View(billeder);
             }
-            Billeder billeder = db.Billeder.Find(id);
-            if (billeder == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
-            return View(billeder);
         }
 
         // POST: Billeders/Edit/5
@@ -262,14 +285,18 @@ namespace Munin.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
         {
-            if (ModelState.IsValid)
+            using (var db = new ILABNewEntities2())
             {
-                db.Entry(billeder).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(billeder).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+                return View(billeder);
             }
-            ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
-            return View(billeder);
         }
 
         // GET: Billeders/Delete/5
@@ -279,12 +306,15 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Billeder billeder = db.Billeder.Find(id);
-            if (billeder == null)
+            using (var db = new ILABNewEntities2())
             {
-                return HttpNotFound();
+                Billeder billeder = db.Billeder.Find(id);
+                if (billeder == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(billeder);
             }
-            return View(billeder);
         }
 
         // POST: Billeders/Delete/5
@@ -292,19 +322,25 @@ namespace Munin.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Billeder billeder = db.Billeder.Find(id);
-            db.Billeder.Remove(billeder);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            using (var db = new ILABNewEntities2())
+            {
+                Billeder billeder = db.Billeder.Find(id);
+                db.Billeder.Remove(billeder);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            using (var db = new ILABNewEntities2())
             {
-                db.Dispose();
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
         }
     }
 }

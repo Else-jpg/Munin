@@ -8,8 +8,8 @@
     vm.journaler = [];
     vm.model = {};
     vm.model.billedId = 0;
-    vm.model.billedIndex = '';
-    vm.model.numOrdning = '';
+    vm.model.billedindex = '';
+    vm.model.numordning = '';
     vm.model.ordning = '';
     vm.model.cdNr = '';
     vm.model.fotograf = '';
@@ -27,13 +27,26 @@
     $scope.dataset = [];
     $scope.selectedItem = {};
 
+    var getMateriale = function (matId) {
+        for (i = 0; i < vm.materialer.length; i++) {
+            if (vm.materialer[i].value === matId)
+                return vm.materialer[i];
+        }
+        return vm.materialer[0];
+    }
+
     $scope.initpage = function () {
-        var id = angular.element('#id').val();
+        var id = angular.element('#ID').val();
         $http.get('/billeders/load/' + id).then(function (result) {
-            console.log(result);
-                vm.model.billedIndex = result.data.model.billedindex;
+                console.log(result);
+                vm.model = result.data.model;
+                vm.model.datering = new Date(result.data.model.datering.split('T')[0]);
+                vm.journal.value = vm.model.journalID;
+                vm.journal.text = vm.model.journal;
                 vm.materialer = result.data.materialeList;
                 vm.journaler = result.data.journalList;
+                vm.materiale = {};
+                vm.materiale = getMateriale(result.data.model.materiale);
             },
         function(result) {
             console.log(result);

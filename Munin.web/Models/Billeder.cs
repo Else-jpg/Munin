@@ -46,8 +46,7 @@ namespace Munin.web.Models
         public DateTime Datering { get; set; }
         public string Indlevering { get; set; }
         public string Note { get; set; }
-        public Nullable<int> JournalID { get; set; }
-    
+        public Nullable<int> JournalID { get; set; }    
         public virtual Journaler Journaler { get; set; }
     }
 }

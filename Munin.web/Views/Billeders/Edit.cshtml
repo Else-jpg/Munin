@@ -4,18 +4,14 @@
     ViewBag.Title = "Rediger";
 }
 
-<h2>Edit</h2>
+<h2>Opret</h2>
 
-<div class="form-horizontal" ng-controller="billedeCtrl">
-    <br/>
-    <p>Jensen {{opened}}</p>
-    <br/>
-    <div class="col-md-6">
-        <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-            </span>
-        </p>
-    </div>
+<div ng-controller="billedeCreateCtrl as ctrl" ng-init="initpage()">
+    @Html.Hidden("ID", Model.BilledID, new {@id = "ID"})
+    @Html.Partial("form")
+</div>
+
+
+<div>
+    @Html.ActionLink("Tilbage til liste", "Index")
 </div>
