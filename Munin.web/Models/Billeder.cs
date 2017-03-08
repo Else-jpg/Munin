@@ -15,7 +15,7 @@ namespace Munin.web.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Billeder
     {
         [Required]
@@ -41,12 +41,12 @@ namespace Munin.web.Models
         public string Placering { get; set; }
         public bool Ophavsret { get; set; }
         public bool Klausul { get; set; }
-        
+
         [ValidDate(ErrorMessage = "Dateringen er ikke godkendt.")]
         public DateTime Datering { get; set; }
         public string Indlevering { get; set; }
         public string Note { get; set; }
-        public Nullable<int> JournalID { get; set; }    
+        public Nullable<int> JournalID { get; set; }
         public virtual Journaler Journaler { get; set; }
     }
 }

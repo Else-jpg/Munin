@@ -11,7 +11,7 @@
     vm.model.billedindex = '';
     vm.model.numordning = '';
     vm.model.ordning = '';
-    vm.model.cdNr = '';
+    vm.model.cDnr = '';
     vm.model.fotograf = '';
     vm.model.format = ''
     vm.model.klausul = false;
@@ -66,6 +66,7 @@
                 window.location.href = "/billeders/index";
             vm.message = result.data.message;           
         }, function (result) {
+            console.log(result);
             vm.message = 'Der opstod en fejl.';
         });
     }

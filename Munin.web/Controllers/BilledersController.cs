@@ -21,8 +21,8 @@ namespace Munin.web.Controllers
         {
             using (var db = new ILABNewEntities2())
             {
-                var billeder = db.Billeder.Include(b => b.Journaler);
-                return View(billeder.ToList());
+                var billeder = db.Billeder.ToList();
+                return View(billeder);
             }
         }
 
@@ -193,17 +193,46 @@ namespace Munin.web.Controllers
             {
                 using (var db = new ILABNewEntities2())
                 {
-                    db.Billeder.Add(model);
+                    var dbModel = new Billeder()
+                    {
+                        Datering = model.Datering,
+                        Billedindex = model.Billedindex,
+                        CDnr = model.CDnr,
+                        Format = model.Format,
+                        Fotograf = model.Fotograf,
+                        Journal = model.Journal,
+                        JournalID = model.JournalID,
+                        Klausul = model.Klausul,
+                        Materiale = model.Materiale,
+                        Note = model.Note,
+                        Numordning = model.Numordning,
+                        Ophavsret = model.Ophavsret,
+                        Ordning = model.Ordning,
+                        Placering = model.Placering
+                    };
+
+                    db.Billeder.Add(dbModel);
+
                     await db.SaveChangesAsync();
                     return Json(new {success = true, message = ""});
                 }
             }
             catch (Exception ex)
             {
+                //brug extensible funktion
+                string err_message = ex.Message;
+
+                if (ex.InnerException != null)
+                {
+                    err_message = ex.InnerException.Message;
+                    if (ex.InnerException.InnerException != null)
+                        err_message = ex.InnerException.InnerException.Message;
+                }
+
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message
+                    message = err_message
                 });
             }
 

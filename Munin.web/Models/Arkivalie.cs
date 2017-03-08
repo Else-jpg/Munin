@@ -14,7 +14,6 @@ namespace Munin.web.Models
     
     public partial class Arkivalie
     {
-        public int ArkivalieID { get; set; }
         public string Journal { get; set; }
         public string Arkivfondnr { get; set; }
         public string Art { get; set; }
@@ -29,6 +28,7 @@ namespace Munin.web.Models
         public string Note { get; set; }
         public Nullable<int> JournalID { get; set; }
         public Nullable<int> ArkivfondID { get; set; }
+        public int ArkivalieID { get; set; }
     
         public virtual ArkivFond ArkivFond { get; set; }
         public virtual Journaler Journaler { get; set; }

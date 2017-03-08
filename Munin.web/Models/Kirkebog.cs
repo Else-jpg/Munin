@@ -14,10 +14,10 @@ namespace Munin.web.Models
     
     public partial class Kirkebog
     {
-        public int PersonID { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
         public string Ind_dato { get; set; }
         public string Kirkehandling { get; set; }
+        public int PersonID { get; set; }
     }
 }

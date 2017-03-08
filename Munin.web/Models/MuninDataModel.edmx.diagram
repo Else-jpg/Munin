@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0930e13a2084b07ba9e6ffdf3e6e310" Name="Diagram1">
+        <EntityTypeShape EntityType="ILABNew2Model.Arkivalie" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.ArkivFond" Width="1.5" PointX="3.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Aviser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Bibliotek" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Billeder" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Giver" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Journaler" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Kirkebog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Kort" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Matrikler" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.Sekvenser" Width="1.5" PointX="3" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.udklip" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ILABNew2Model.UserTbl" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ILABNew2Model.FK_Arkivalie_ArkivFond" ManuallyRouted="false" />
+        <AssociationConnector Association="ILABNew2Model.FK_Arkivalie_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="ILABNew2Model.FK_Bibliotek_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="ILABNew2Model.FK_Giver_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="ILABNew2Model.FK_Kort_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="ILABNew2Model.FK_Sekvenser_Journaler" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -14,11 +14,11 @@ namespace Munin.web.Models
     
     public partial class udklip
     {
-        public int UdklipsID { get; set; }
         public string Mappe { get; set; }
         public string Overskrift { get; set; }
         public string Datering { get; set; }
         public string Aviskode { get; set; }
         public string Note { get; set; }
+        public int UdklipsID { get; set; }
     }
 }

@@ -20,7 +20,6 @@ namespace Munin.web.Models
             this.Arkivalie = new HashSet<Arkivalie>();
         }
     
-        public int ArkivfondID { get; set; }
         public string ArkivNr { get; set; }
         public string ArkivNavn { get; set; }
         public string ArkivDef { get; set; }
@@ -35,6 +34,7 @@ namespace Munin.web.Models
         public string Postnr { get; set; }
         public string By { get; set; }
         public string Note { get; set; }
+        public int ArkivfondID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Arkivalie> Arkivalie { get; set; }

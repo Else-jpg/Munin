@@ -19,26 +19,23 @@ namespace Munin.web.Models
         {
             this.Arkivalie = new HashSet<Arkivalie>();
             this.Bibliotek = new HashSet<Bibliotek>();
-            this.Billeder = new HashSet<Billeder>();
             this.Giver = new HashSet<Giver>();
             this.Kort = new HashSet<Kort>();
             this.Sekvenser = new HashSet<Sekvenser>();
         }
     
-        public int JournalID { get; set; }
         public string JournalNb { get; set; }
         public Nullable<System.DateTime> Afleveret { get; set; }
         public string MedieArt { get; set; }
         public Nullable<double> Antal { get; set; }
         public Nullable<double> Regs { get; set; }
         public string Note { get; set; }
+        public int JournalID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Arkivalie> Arkivalie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bibliotek> Bibliotek { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Billeder> Billeder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Giver> Giver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
