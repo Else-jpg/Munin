@@ -131,7 +131,7 @@ namespace Munin.web.Controllers
                         vm.Model = new Billeder()
                         {
                             JournalID = 0,
-                            Materiale = 0
+                            Materiale = 0,                            
                         };
 
                         if (billede != null)
@@ -163,6 +163,7 @@ namespace Munin.web.Controllers
                         int bindex = Int32.Parse(billedindex.Split('.')[1]);
                         bindex++;
                         vm.Model.Billedindex = "B." + bindex.ToString().PadLeft(4, '0');
+                        vm.Model.Datering = DateTime.Now.Date;
 
                     }
                 }
@@ -270,23 +271,23 @@ namespace Munin.web.Controllers
         // POST: Billeders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var db = new ILABNewEntities2())
-                {
-                    db.Billeder.Add(billeder);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        using (var db = new ILABNewEntities2())
+        //        {
+        //            db.Billeder.Add(billeder);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
 
-            //ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
-            return View(billeder);
-        }
+        //    //ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+        //    return View(billeder);
+        //}
 
         // GET: Billeders/Edit/5
         public ActionResult Edit(int? id)
@@ -302,7 +303,7 @@ namespace Munin.web.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+                //ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
                 return View(billeder);
             }
         }
@@ -310,23 +311,23 @@ namespace Munin.web.Controllers
         // POST: Billeders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
-        {
-            using (var db = new ILABNewEntities2())
-            {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
+        //{
+        //    using (var db = new ILABNewEntities2())
+        //    {
 
-                if (ModelState.IsValid)
-                {
-                    db.Entry(billeder).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
-                return View(billeder);
-            }
-        }
+        //        if (ModelState.IsValid)
+        //        {
+        //            db.Entry(billeder).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", billeder.JournalID);
+        //        return View(billeder);
+        //    }
+        //}
 
         // GET: Billeders/Delete/5
         public ActionResult Delete(int? id)

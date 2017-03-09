@@ -25,6 +25,7 @@ namespace Munin.web
                         "~/Scripts/App/Billeder.js",
                         "~/Scripts/App/BilledeCtrl.js",
                         "~/Scripts/App/BilledeCreateCtrl.js",
+                        "~/Scripts/App/BoglisteCtrl.js",
                         "~/Scripts/datetimepicker.js",
                         "~/Scripts/datetimepicker.templates.js"));
 

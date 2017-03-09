@@ -1,111 +1,83 @@
 ﻿@model IEnumerable<Munin.web.Models.Bibliotek>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bibliotek";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Bogkode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Journal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DK5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ordningsord)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Undertitel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Redaktor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Forfatter)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Udgivet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Forlag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Samlemappe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Indlevering)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Journaler.JournalNb)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bogkode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Journal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DK5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ordningsord)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Undertitel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Redaktor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Forfatter)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Udgivet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Forlag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Samlemappe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Indlevering)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Journaler.JournalNb)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BogID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BogID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BogID })
-        </td>
-    </tr>
-}
-
-</table>
+<div ng-controller="BoglisteCtrl" ng-init="loadPage()">
+    <div class="row">
+        <div class="col-md-1">
+            <select class="form-control input-small pull-right" ng-model="query.size" ng-change="perPage()" ng-options="(size) for size in pageSizes"></select>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-3 text-right">
+            <div class="input-group input-group-small pull-right">
+                <input type="text" class="form-control search-query" ng-model="query.q" placeholder="Søg" ng-keyup="$event.keyCode == 13 ? search() : null">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="bogKode" order="bogKode"><a href ng-click="sort_by('bogkode')" style="color: #555555;cursor:hand;">Bogkode&nbsp;<i ng-class="selectedCls('bogkode')"></i></a></th>
+                        <th class="titel" order="bogKode"><a href ng-click="sort_by('titel')" style="color: #555555;cursor:hand;">Titel&nbsp;<i ng-class="selectedCls('titel')"></i></a></th>
+                        <th class="forfatter" order="forfatter"><a href ng-click="sort_by('forfatter')" style="color: #555555;cursor:hand;">Forfatter&nbsp;<i ng-class="selectedCls('forfatter')"></i></a></th>
+                        <th class="udgivet" order=""><a href ng-click="sort_by('udgivet')" style="color: #555555;cursor:hand;">Udgivet&nbsp;<i ng-class="selectedCls('udgivet')"></i></a></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <div class="row">
+                                <br />
+                                <div class="col-md-12">
+                                    <h4>{{pageResult.count}} rækker fundet</h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td colspan="4">
+                            <div class="pull-right">
+                                <ul class="pagination">
+                                    <li ng-class="{disabled: query.p == 0}">
+                                        <a href ng-click="prevPage()">« Forrige</a>
+                                    </li>
+                                    <li ng-repeat="n in pages"
+                                        ng-class="{active: n == query.p}"
+                                        ng-click="setPage()">
+                                        <a href ng-bind="n+1">1</a>
+                                    </li>
+                                    <li ng-class="{disabled: query.p == pages.length-1}">
+                                        <a href ng-click="nextPage()">Næste »</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="item in items">
+                        <td class="col-md-1">{{item.bogKode}}</td>
+                        <td class="col-md-4">{{item.titel}}</td>
+                        <td class="col-md-4">{{item.forfatter}}</td>
+                        <td class="col-md-1">{{item.udgivet}}</td>
+                        <td class="col-md-1"><a href="/Biblioteks/edit/{{item.id}}"><span title="Rediger" class="btn btn-sm" style="background-color: #5fba7d;color:white"><span class="glyphicon glyphicon-pencil"></span></span></a></td>
+                        <td class="col-md-1"><span title="Slet" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

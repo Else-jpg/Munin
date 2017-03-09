@@ -139,6 +139,8 @@
     <Compile Include="Controllers\ArkivaliesController.cs" />
     <Compile Include="Controllers\ArkivFondsController.cs" />
     <Compile Include="Controllers\BiblioteksController.cs" />
+    <Compile Include="Controllers\MuninListViewModel.cs" />
+    <Compile Include="ViewModels\BiblioteksDto.cs" />
     <Compile Include="Controllers\BilledersController.cs" />
     <Compile Include="Controllers\GiversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Models\UserTbl.cs">
       <DependentUpon>MuninDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BibliotekVm.cs" />
     <Compile Include="ViewModels\BillederDto.cs" />
     <Compile Include="ViewModels\BilledeListViewModel.cs" />
     <Compile Include="ViewModels\BilledeVm.cs" />
@@ -283,6 +286,7 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\App\BogListeCtrl.js" />
     <Content Include="Scripts\App\filter.js" />
     <Content Include="Scripts\App\filters.js" />
     <Content Include="Scripts\App\Templates\dateElement.html" />
@@ -471,6 +475,7 @@
     <Content Include="Views\ArkivFonds\Index.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Billeders\form.cshtml" />
+    <Content Include="Views\Biblioteks\_form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,6 +26,7 @@
 
     $scope.dataset = [];
     $scope.selectedItem = {};
+    $scope.pageLoaded = false;
 
     var getMateriale = function (matId) {
         for (i = 0; i < vm.materialer.length; i++) {
@@ -47,8 +48,10 @@
                 vm.journaler = result.data.journalList;
                 vm.materiale = {};
                 vm.materiale = getMateriale(result.data.model.materiale);
+                $scope.pageLoaded = true;
             },
-        function(result) {
+            function (result) {
+            vm.message = "Der opstod en fejl i forbindelse med at vise siden.";           
             console.log(result);
         });
     }

@@ -1,19 +1,17 @@
-﻿
-
-<div class="form-horizontal">
+﻿<div class="form-horizontal" ng-show="pageLoaded">
     <h4>Billeder</h4>
     <hr/>
-
+    
     <div asp-net-error message={{ctrl.message}}></div>
 
     <div asp-net-text-element label="BilledIndex" model="ctrl.model.billedindex"></div>
-    <div asp-net-text-element label="Numordning" model="ctrl.model.numordning"></div>
-    <div asp-net-text-element label="Ordning" model="ctrl.model.ordning"></div>
-    <div asp-net-text-element label="CDnr" model="ctrl.model.cDnr"></div>
-    <div asp-net-text-element label="Fotograf" model="ctrl.model.fotograf"></div>
-    <div asp-net-text-element label="Format" model="ctrl.model.format"></div>
+    <div asp-net-text-element label="Numordning" model="ctrl.model.numordning" placeholder="nummer-ordning eks. 12.3abc"></div>
+    <div asp-net-text-element label="Ordning" model="ctrl.model.ordning" placeholder="Ordning"></div>
+    <div asp-net-text-element label="CDnr" model="ctrl.model.cDnr" placeholder="CD-nummer"></div>
+    <div asp-net-text-element label="Fotograf" model="ctrl.model.fotograf" placeholder="Fotografen"></div>
+    <div asp-net-text-element label="Format" model="ctrl.model.format" placeholder="Format af billede"></div>
     <div asp-net-check-element label="Klausul" model="ctrl.model.klausul"></div>
-    <div asp-net-check-element label="Ophavsret" model="ctrl.model.ophavsret"></div>
+    <div asp-net-check-element label="Ophavsret" model="ctrl.model.ophavsret" ></div>
     <div asp-net-text-element label="placering" model="ctrl.model.placering" placeholder="indtast placering"></div>
 
 

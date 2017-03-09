@@ -24,9 +24,11 @@ namespace Munin.web.Models
         [Required(ErrorMessage = "Journal skal udfyldes")]
         public string Journal { get; set; }
 
+        [Required(ErrorMessage = "Der skal angives billedindex")]       
         [RegularExpression(@"^(?i)B.\d{4}$", ErrorMessage = "Billedindex skal opfylde formatet B.1234")]
         public string Billedindex { get; set; }
 
+        [Required(ErrorMessage = "Der skal angives nummerordning")]
         [RegularExpression(@"^\d{2}.\d{2}[a-åA-Å0-9]*$", ErrorMessage = "Numordning skal opfylde formatet 12.34aå")]
         public string Numordning { get; set; }
 
