@@ -10,6 +10,10 @@ using Munin.web.Models;
 using Munin.web.ViewModels;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Der mangler implementering af angular-controller til Bibliotek.
+/// </summary>
+
 namespace Munin.web.Controllers
 {
     public class BilledersController : Controller

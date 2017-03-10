@@ -13,8 +13,6 @@ namespace Munin.web.Controllers
 {
     public class BiblioteksController : Controller
     {
-        //private ILABNewEntities2 db = new ILABNewEntities2();
-
         // GET: Biblioteks
         public ActionResult Index()
         {
@@ -72,7 +70,7 @@ namespace Munin.web.Controllers
 
                     var pageResult = l.Select(x => new BiblioteksDto()
                     {
-                        ID = x.BogID,
+                        ID = x.BibliotekID,
                         BogKode = x.Bogkode,
                         Titel = x.Titel,
                         Forfatter = x.Forfatter,
@@ -83,7 +81,7 @@ namespace Munin.web.Controllers
                     {
                         pageResult = l.Select(x => new BiblioteksDto()
                         {
-                            ID = x.BogID,
+                            ID = x.BibliotekID,
                             BogKode = x.Bogkode,
                             Titel = x.Titel,
                             Forfatter = x.Forfatter,
@@ -119,14 +117,15 @@ namespace Munin.web.Controllers
                 using (ILABNewEntities2 db = new ILABNewEntities2())
                 {
                     vm.JournalList =
-                        db.Journaler.Select(x => new UISelectItem() { Value = x.JournalID, Text = x.JournalNb }).ToList();
+                        await db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb})
+                            .ToListAsync();
 
                     vm.Model = new Bibliotek();
 
 
                     if (id > 0)
                     {
-                        var bibliotek = db.Bibliotek.FirstOrDefault(x => x.BilledID == id);
+                        var bibliotek = db.Bibliotek.FirstOrDefault(x => x.BibliotekID == id);
                         vm.Model = new Bibliotek()
                         {
                             JournalID = 0,
@@ -136,11 +135,12 @@ namespace Munin.web.Controllers
                         {
                             vm.Model = new Bibliotek()
                             {
-                                BibliotekID = bibliotek.BogID,
+                                BibliotekID = bibliotek.BibliotekID,
+                                BogID = bibliotek.BibliotekID,
                                 Bogkode = bibliotek.Bogkode,
                                 Titel = bibliotek.Titel,
                                 Forfatter = bibliotek.Forfatter,
-                                Udgivet = (bibliotek.Udgivet == null) ? 0 : bibliotek.Udgivet.Value
+                                Udgivet = (bibliotek.Udgivet == null) ? 0 : bibliotek.Udgivet.Value,
                                 DK5 = bibliotek.DK5,
                                 Forlag = bibliotek.Forlag,
                                 Note = bibliotek.Note,
@@ -208,23 +208,35 @@ namespace Munin.web.Controllers
             {
                 using (var db = new ILABNewEntities2())
                 {
-                    var dbModel = new Bibliotek()
-                    {
-                        Bogkode = model.Bogkode,
-                        Titel = model.Titel,
-                        Udgivet = model.Udgivet.Value,
-                        Forfatter = model.Forfatter,
-                        Forlag = model.Forlag,
-                        Undertitel = model.Undertitel,
-                        DK5 = model.DK5,
-                        Ordningsord = model.Ordningsord,
-                        Redaktor = model.Redaktor,
-                        Journal = model.Journal,
-                        JournalID = model.JournalID,
-                        Note = model.Note
-                    };
 
-                    db.Bibliotek.Add(dbModel);
+                    var dbModel = new Bibliotek();
+
+                    if (model.BibliotekID > 0)
+                    {
+                        dbModel = await db.Bibliotek.FirstOrDefaultAsync(x => x.BibliotekID == model.BibliotekID);
+                        if (dbModel == null)
+                            throw new Exception(string.Format("Bog med id {0} blev ikke fundet",model.BibliotekID));
+                    }
+
+                    dbModel.Bogkode = model.Bogkode;
+                    dbModel.Titel = model.Titel;
+                    dbModel.Udgivet = (model.Udgivet != null) ? model.Udgivet.Value : 0;
+                    dbModel.Forfatter = model.Forfatter;
+                    dbModel.Forlag = model.Forlag;
+                    dbModel.Undertitel = model.Undertitel;
+                    dbModel.DK5 = model.DK5;
+                    dbModel.Ordningsord = model.Ordningsord;
+                    dbModel.Redaktor = model.Redaktor;
+                    dbModel.Journal = model.Journal;
+                    dbModel.JournalID = model.JournalID;
+                    dbModel.Note = model.Note;
+
+                    if (model.BibliotekID > 0)
+                        db.Entry(dbModel).State = EntityState.Modified;
+                    else
+                    {
+                        db.Bibliotek.Add(dbModel);
+                    }
 
                     await db.SaveChangesAsync();
                     return Json(new { success = true, message = "" });
@@ -260,26 +272,7 @@ namespace Munin.web.Controllers
 
             return View();
         }
-
-        // POST: Biblioteks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "BogID,Bogkode,Journal,DK5,Ordningsord,Titel,Undertitel,Redaktor,Forfatter,Udgivet,Forlag,Samlemappe,Indlevering,Note,JournalID")] Bibliotek bibliotek)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Bibliotek.Add(bibliotek);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", bibliotek.JournalID);
-        //    return View(bibliotek);
-        //}
-
-        // GET: Biblioteks/Edit/5
+    
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -297,54 +290,28 @@ namespace Munin.web.Controllers
             }
         }
 
-        // POST: Biblioteks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BogID,Bogkode,Journal,DK5,Ordningsord,Titel,Undertitel,Redaktor,Forfatter,Udgivet,Forlag,Samlemappe,Indlevering,Note,JournalID")] Bibliotek bibliotek)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(bibliotek).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.JournalID = new SelectList(db.Journaler, "JournalID", "JournalNb", bibliotek.JournalID);
-            return View(bibliotek);
-        }
-
-        // GET: Biblioteks/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Bibliotek bibliotek = db.Bibliotek.Find(id);
-            if (bibliotek == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bibliotek);
-        }
-
-        // POST: Biblioteks/Delete/5
+      // POST: Biblioteks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Bibliotek bibliotek = db.Bibliotek.Find(id);
-            db.Bibliotek.Remove(bibliotek);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            using (var db = new ILABNewEntities2())
+            {
+                Bibliotek bibliotek = db.Bibliotek.Find(id);
+                db.Bibliotek.Remove(bibliotek);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                using (var db = new ILABNewEntities2())
+                {
+                    db.Dispose();
+                }                    
             }
             base.Dispose(disposing);
         }
