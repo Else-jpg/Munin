@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Munin.web.Models;
+using Munin.DAL.Models;
 
 namespace Munin.web.ViewModels
 {

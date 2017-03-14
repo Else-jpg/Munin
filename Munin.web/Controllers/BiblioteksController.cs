@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
-using Munin.web.Models;
+using Munin.DAL.Models;
+using Munin.DAL;
 using System.Threading.Tasks;
 using Munin.web.ViewModels;
 using Newtonsoft.Json;
+using Bibliotek = Munin.DAL.Models.Bibliotek;
 
 namespace Munin.web.Controllers
 {
@@ -16,7 +18,7 @@ namespace Munin.web.Controllers
         // GET: Biblioteks
         public ActionResult Index()
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 var bibliotek = db.Bibliotek.Include(b => b.Journaler);
                 return View(bibliotek.ToList());
@@ -28,7 +30,7 @@ namespace Munin.web.Controllers
         {
             try
             {
-                using (var dbmunin = new ILABNewEntities2())
+                using (var dbmunin = new ILABNew2Entities())
                 {
 
                     int flicks = query.P * query.Size;
@@ -114,7 +116,7 @@ namespace Munin.web.Controllers
 
             try
             {
-                using (ILABNewEntities2 db = new ILABNewEntities2())
+                using (ILABNew2Entities db = new ILABNew2Entities())
                 {
                     vm.JournalList =
                         await db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb})
@@ -178,7 +180,7 @@ namespace Munin.web.Controllers
         // GET: Biblioteks/Details/5
         public ActionResult Details(int? id)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 if (id == null)
                 {
@@ -206,7 +208,7 @@ namespace Munin.web.Controllers
 
             try
             {
-                using (var db = new ILABNewEntities2())
+                using (var db = new ILABNew2Entities())
                 {
 
                     var dbModel = new Bibliotek();
@@ -229,6 +231,7 @@ namespace Munin.web.Controllers
                     dbModel.Redaktor = model.Redaktor;
                     dbModel.Journal = model.Journal;
                     dbModel.JournalID = model.JournalID;
+                    dbModel.Samlemappe = model.Samlemappe;
                     dbModel.Note = model.Note;
 
                     if (model.BibliotekID > 0)
@@ -279,7 +282,7 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 Bibliotek bibliotek = db.Bibliotek.Find(id);
                 if (bibliotek == null)
@@ -295,7 +298,7 @@ namespace Munin.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 Bibliotek bibliotek = db.Bibliotek.Find(id);
                 db.Bibliotek.Remove(bibliotek);
@@ -308,7 +311,7 @@ namespace Munin.web.Controllers
         {
             if (disposing)
             {
-                using (var db = new ILABNewEntities2())
+                using (var db = new ILABNew2Entities())
                 {
                     db.Dispose();
                 }                    

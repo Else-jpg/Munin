@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using Munin.web;
-using Munin.web.Models;
 using System.Threading.Tasks;
 using Munin.web.ViewModels;
 using Newtonsoft.Json;
 using System.Reflection;
+using Munin.DAL.Models;
 
 namespace Munin.web.Controllers
 {
     public class udklipsController : Controller
     {
-        private ILABNewEntities2 db = new ILABNewEntities2();
+        private ILABNew2Entities db = new ILABNew2Entities();
 
         // GET: udklips
         public ActionResult Index()
@@ -35,7 +28,7 @@ namespace Munin.web.Controllers
         {
             try
             {
-                using (var dbmunin = new ILABNewEntities2())
+                using (var dbmunin = new ILABNew2Entities())
                 {
 
                     int flicks = query.P * query.Size;
@@ -53,7 +46,7 @@ namespace Munin.web.Controllers
                         }
                     }
 
-                    var column = typeof (udklip).GetProperty(query.S,
+                    var column = typeof (Udklip).GetProperty(query.S,
                         BindingFlags.SetProperty | BindingFlags.IgnoreCase |
                         BindingFlags.Public | BindingFlags.Instance);
 
@@ -101,7 +94,7 @@ namespace Munin.web.Controllers
                             o.ErrorCode = 1;
                     }
 
-                    var listResult = new UdklipViewModel()
+                    var listResult = new MuninListViewModel<UdklipDto>()
                     {
                         Count = l.Count,
                         Pages = l.Count / query.Size,
@@ -126,7 +119,7 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            udklip udklip = db.udklip.Find(id);
+            Udklip udklip = db.udklip.Find(id);
             if (udklip == null)
             {
                 return HttpNotFound();
@@ -148,7 +141,7 @@ namespace Munin.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UdklipsID,Mappe,Overskrift,Datering,Aviskode,Note")] udklip udklip)
+        public ActionResult Create([Bind(Include = "UdklipsID,Mappe,Overskrift,Datering,Aviskode,Note")] Udklip udklip)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +160,7 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            udklip udklip = db.udklip.Find(id);
+            Udklip udklip = db.udklip.Find(id);
             if (udklip == null)
             {
                 return HttpNotFound();
@@ -180,7 +173,7 @@ namespace Munin.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UdklipsID,Mappe,Overskrift,Datering,Aviskode,Note")] udklip udklip)
+        public ActionResult Edit([Bind(Include = "UdklipsID,Mappe,Overskrift,Datering,Aviskode,Note")] Udklip udklip)
         {
             if (ModelState.IsValid)
             {
@@ -198,7 +191,7 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            udklip udklip = db.udklip.Find(id);
+            Udklip udklip = db.udklip.Find(id);
             if (udklip == null)
             {
                 return HttpNotFound();
@@ -211,7 +204,7 @@ namespace Munin.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            udklip udklip = db.udklip.Find(id);
+            Udklip udklip = db.udklip.Find(id);
             db.udklip.Remove(udklip);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ILABNew2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Munin.DAL.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Arkivalie">
           <Key>
             <PropertyRef Name="ArkivalieID" />
@@ -204,7 +204,17 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <Property Name="GADENAVN" Type="nvarchar" MaxLength="30" />
           <Property Name="ARKIVNR" Type="nvarchar" MaxLength="6" />
         </EntityType>-->
-        <EntityType Name="Udklip">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="udklip">
           <Key>
             <PropertyRef Name="UdklipsID" />
           </Key>
@@ -214,6 +224,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <Property Name="Aviskode" Type="nvarchar" MaxLength="5" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="UdklipsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateringDt" Type="date" />
         </EntityType>
         <EntityType Name="UserTbl">
           <Key>
@@ -297,7 +308,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ILABNew2ModelStoreContainer">
+        <EntityContainer Name="MuninDALStoreContainer">
           <EntitySet Name="Arkivalie" EntityType="Self.Arkivalie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArkivFond" EntityType="Self.ArkivFond" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Aviser" EntityType="Self.Aviser" Schema="dbo" store:Type="Tables" />
@@ -309,7 +320,8 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <EntitySet Name="Kort" EntityType="Self.Kort" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matrikler" EntityType="Self.Matrikler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sekvenser" EntityType="Self.Sekvenser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Udklip" EntityType="Self.Udklip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="udklip" EntityType="Self.udklip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Arkivalie_ArkivFond" Association="Self.FK_Arkivalie_ArkivFond">
             <End Role="ArkivFond" EntitySet="ArkivFond" />
@@ -340,7 +352,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ILABNew2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Munin.DAL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Arkivalie">
           <Key>
             <PropertyRef Name="ArkivalieID" />
@@ -540,7 +552,17 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <Property Name="JournalID" Type="Int32" />
           <NavigationProperty Name="Journaler" Relationship="Self.FK_Sekvenser_Journaler" FromRole="Sekvenser" ToRole="Journaler" />
         </EntityType>
-        <EntityType Name="Udklip">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="udklip">
           <Key>
             <PropertyRef Name="UdklipsID" />
           </Key>
@@ -550,6 +572,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <Property Name="Aviskode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UdklipsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateringDt" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="UserTbl">
           <Key>
@@ -645,7 +668,8 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
           <EntitySet Name="Kort" EntityType="Self.Kort" />
           <EntitySet Name="Matrikler" EntityType="Self.Matrikler" />
           <EntitySet Name="Sekvenser" EntityType="Self.Sekvenser" />
-          <EntitySet Name="Udklip" EntityType="Self.Udklip" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="udklip" EntityType="Self.udklip" />
           <EntitySet Name="UserTbl" EntityType="Self.UserTbl" />
           <AssociationSet Name="FK_Arkivalie_ArkivFond" Association="Self.FK_Arkivalie_ArkivFond">
             <End Role="ArkivFond" EntitySet="ArkivFond" />
@@ -677,9 +701,9 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ILABNew2ModelStoreContainer" CdmEntityContainer="ILABNew2Entities">
+        <EntityContainerMapping StorageEntityContainer="MuninDALStoreContainer" CdmEntityContainer="ILABNew2Entities">
           <EntitySetMapping Name="Arkivalie">
-            <EntityTypeMapping TypeName="ILABNew2Model.Arkivalie">
+            <EntityTypeMapping TypeName="Munin.DAL.Arkivalie">
               <MappingFragment StoreEntitySet="Arkivalie">
                 <ScalarProperty Name="Journal" ColumnName="Journal" />
                 <ScalarProperty Name="Arkivfondnr" ColumnName="Arkivfondnr" />
@@ -700,7 +724,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArkivFond">
-            <EntityTypeMapping TypeName="ILABNew2Model.ArkivFond">
+            <EntityTypeMapping TypeName="Munin.DAL.ArkivFond">
               <MappingFragment StoreEntitySet="ArkivFond">
                 <ScalarProperty Name="ArkivNr" ColumnName="ArkivNr" />
                 <ScalarProperty Name="ArkivNavn" ColumnName="ArkivNavn" />
@@ -721,7 +745,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Aviser">
-            <EntityTypeMapping TypeName="ILABNew2Model.Aviser">
+            <EntityTypeMapping TypeName="Munin.DAL.Aviser">
               <MappingFragment StoreEntitySet="Aviser">
                 <ScalarProperty Name="AvisID" ColumnName="AvisID" />
                 <ScalarProperty Name="Aviskode" ColumnName="Aviskode" />
@@ -730,7 +754,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bibliotek">
-            <EntityTypeMapping TypeName="ILABNew2Model.Bibliotek">
+            <EntityTypeMapping TypeName="Munin.DAL.Bibliotek">
               <MappingFragment StoreEntitySet="Bibliotek">
                 <ScalarProperty Name="BogID" ColumnName="BogID" />
                 <ScalarProperty Name="Bogkode" ColumnName="Bogkode" />
@@ -752,7 +776,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Billeder">
-            <EntityTypeMapping TypeName="ILABNew2Model.Billeder">
+            <EntityTypeMapping TypeName="Munin.DAL.Billeder">
               <MappingFragment StoreEntitySet="Billeder">
                 <ScalarProperty Name="Journal" ColumnName="Journal" />
                 <ScalarProperty Name="Billedindex" ColumnName="Billedindex" />
@@ -774,7 +798,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Giver">
-            <EntityTypeMapping TypeName="ILABNew2Model.Giver">
+            <EntityTypeMapping TypeName="Munin.DAL.Giver">
               <MappingFragment StoreEntitySet="Giver">
                 <ScalarProperty Name="Journal" ColumnName="Journal" />
                 <ScalarProperty Name="Navn" ColumnName="Navn" />
@@ -791,7 +815,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Journaler">
-            <EntityTypeMapping TypeName="ILABNew2Model.Journaler">
+            <EntityTypeMapping TypeName="Munin.DAL.Journaler">
               <MappingFragment StoreEntitySet="Journaler">
                 <ScalarProperty Name="JournalNb" ColumnName="JournalNb" />
                 <ScalarProperty Name="Afleveret" ColumnName="Afleveret" />
@@ -804,7 +828,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kirkebog">
-            <EntityTypeMapping TypeName="ILABNew2Model.Kirkebog">
+            <EntityTypeMapping TypeName="Munin.DAL.Kirkebog">
               <MappingFragment StoreEntitySet="Kirkebog">
                 <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
                 <ScalarProperty Name="Efternavn" ColumnName="Efternavn" />
@@ -815,7 +839,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kort">
-            <EntityTypeMapping TypeName="ILABNew2Model.Kort">
+            <EntityTypeMapping TypeName="Munin.DAL.Kort">
               <MappingFragment StoreEntitySet="Kort">
                 <ScalarProperty Name="Kortnr" ColumnName="Kortnr" />
                 <ScalarProperty Name="Journal" ColumnName="Journal" />
@@ -837,7 +861,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Matrikler">
-            <EntityTypeMapping TypeName="ILABNew2Model.Matrikler">
+            <EntityTypeMapping TypeName="Munin.DAL.Matrikler">
               <MappingFragment StoreEntitySet="Matrikler">
                 <ScalarProperty Name="MatrikelID" ColumnName="MatrikelID" />
                 <ScalarProperty Name="MatrikelNr" ColumnName="MatrikelNr" />
@@ -857,7 +881,7 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sekvenser">
-            <EntityTypeMapping TypeName="ILABNew2Model.Sekvenser">
+            <EntityTypeMapping TypeName="Munin.DAL.Sekvenser">
               <MappingFragment StoreEntitySet="Sekvenser">
                 <ScalarProperty Name="SekvensID" ColumnName="SekvensID" />
                 <ScalarProperty Name="SekvensNr" ColumnName="SekvensNr" />
@@ -876,20 +900,32 @@ warning 6013: The table/view 'ILABNew2.dbo.Sognegade' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Udklip">
-            <EntityTypeMapping TypeName="ILABNew2Model.Udklip">
-              <MappingFragment StoreEntitySet="Udklip">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Munin.DAL.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="udklip">
+            <EntityTypeMapping TypeName="Munin.DAL.udklip">
+              <MappingFragment StoreEntitySet="udklip">
                 <ScalarProperty Name="Mappe" ColumnName="Mappe" />
                 <ScalarProperty Name="Overskrift" ColumnName="Overskrift" />
                 <ScalarProperty Name="Datering" ColumnName="Datering" />
                 <ScalarProperty Name="Aviskode" ColumnName="Aviskode" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="UdklipsID" ColumnName="UdklipsID" />
+                <ScalarProperty Name="DateringDt" ColumnName="DateringDt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTbl">
-            <EntityTypeMapping TypeName="ILABNew2Model.UserTbl">
+            <EntityTypeMapping TypeName="Munin.DAL.UserTbl">
               <MappingFragment StoreEntitySet="UserTbl">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Initials" ColumnName="Initials" />

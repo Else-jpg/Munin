@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Munin.web.Models
+using System.ComponentModel.DataAnnotations;
+
+namespace Munin.DAL.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ILABNewEntities2 : DbContext
+    public partial class ILABNew2Entities : DbContext
     {
-        public ILABNewEntities2()
-            : base("name=ILABNewEntities2")
+        public ILABNew2Entities()
+            : base("name=ILABNew2Entities")
         {
         }
     
@@ -37,7 +39,22 @@ namespace Munin.web.Models
         public virtual DbSet<Matrikler> Matrikler { get; set; }
         public virtual DbSet<Sekvenser> Sekvenser { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<udklip> udklip { get; set; }
+        public virtual DbSet<Udklip> udklip { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ValidDateAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value == null)
+                return new ValidationResult("Datoen er ikke godkendt.");
+
+            if ((DateTime)value == DateTime.MinValue)
+                return new ValidationResult("Datoen er ikke godkendt.");
+
+            return ValidationResult.Success;
+        }
     }
 }

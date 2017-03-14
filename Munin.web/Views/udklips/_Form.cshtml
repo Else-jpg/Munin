@@ -1,0 +1,52 @@
+﻿<div class="form-horizontal" ng-show="pageLoaded">
+    <h4>Udklip</h4>
+    <hr />
+
+    <div asp-net-error message={{ctrl.message}}></div>
+
+    <div asp-net-text-element label="Mappe" model="ctrl.model.bogkode"></div>
+    <div asp-net-text-element label="Overskrift" model="ctrl.model.dK5" placeholder="DK5-kode"></div>
+    <div class="form-group">
+        <div class="row">
+            <label class="control-label col-md-2">
+                <label>Datering</label>
+            </label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <input style="width: 150px" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ctrl.model.datering" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="control-label col-md-2">
+                <label>Avis</label>
+            </label>
+            <div class="col-md-10">
+                <ui-select ng-model="ctrl.avisKode" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Vælg Avis">
+                    <ui-select-match placeholder="Vælg en avis">{{$select.selected.text}}</ui-select-match>
+                    <ui-select-choices repeat="avis in ctrl.aviser | propsFilter: {value: $select.search, text: $select.search}">
+                        <small>{{avis.text}}</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+
+    <div asp-net-text-area label="Note" model="ctrl.model.note"></div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-10">
+                <input type="button" value="Gem" class="btn btn-default" ng-click="save()" />
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5da073418e9947b68da4cfc7c138c05d" Name="Diagram1">
+        <EntityTypeShape EntityType="Munin.DAL.Arkivalie" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.ArkivFond" Width="1.5" PointX="3.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Aviser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Bibliotek" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Billeder" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Giver" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Journaler" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Kirkebog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Kort" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Matrikler" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.Sekvenser" Width="1.5" PointX="3" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.udklip" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Munin.DAL.UserTbl" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="Munin.DAL.FK_Arkivalie_ArkivFond" ManuallyRouted="false" />
+        <AssociationConnector Association="Munin.DAL.FK_Arkivalie_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="Munin.DAL.FK_Bibliotek_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="Munin.DAL.FK_Giver_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="Munin.DAL.FK_Kort_Journaler" ManuallyRouted="false" />
+        <AssociationConnector Association="Munin.DAL.FK_Sekvenser_Journaler" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

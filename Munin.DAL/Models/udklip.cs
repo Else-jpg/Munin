@@ -7,15 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Munin.web.Models
+using System.ComponentModel.DataAnnotations;
+
+namespace Munin.DAL.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class udklip
+    public partial class Udklip
     {
         public int UdklipsID { get; set; }
+
+        [Required(ErrorMessage = "Der skal angives nummerordning")]
+        [RegularExpression(@"^\d{2}.\d{2}[a-åA-Å0-9]*$", ErrorMessage = "Numordning skal opfylde formatet 12.34aå")]        
         public string Mappe { get; set; }
+        [Required(ErrorMessage = "Udklippet skal have en overskrift")]
         public string Overskrift { get; set; }
         public string Datering { get; set; }
         public string Aviskode { get; set; }

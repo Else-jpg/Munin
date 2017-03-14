@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Munin.web.Models;
+using Munin.DAL.Models;
 
 namespace Munin.web.Controllers
 {
     public class GiversController : Controller
     {
-        private ILABNewEntities2 db = new ILABNewEntities2();
+        private ILABNew2Entities db = new ILABNew2Entities();
 
         // GET: Givers
         public ActionResult Index()

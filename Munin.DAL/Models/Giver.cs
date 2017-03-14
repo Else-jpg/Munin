@@ -7,14 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Munin.web.Models
+namespace Munin.DAL.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Giver
     {
-        public int GiverID { get; set; }
         public string Journal { get; set; }
         public string Navn { get; set; }
         public string Att { get; set; }
@@ -25,6 +24,7 @@ namespace Munin.web.Models
         public string Registrator { get; set; }
         public string Note { get; set; }
         public Nullable<int> JournalID { get; set; }
+        public int GiverID { get; set; }
     
         public virtual Journaler Journaler { get; set; }
     }

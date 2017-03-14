@@ -6,7 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Munin.web.Models;
+using Munin.DAL.Models;
 using Munin.web.ViewModels;
 using Newtonsoft.Json;
 
@@ -18,12 +18,12 @@ namespace Munin.web.Controllers
 {
     public class BilledersController : Controller
     {
-        //private ILABNewEntities2 db = new ILABNewEntities2();
+        //private ILABNew2Entities db = new ILABNew2Entities();
 
         // GET: Billeders
         public ActionResult Index()
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 var billeder = db.Billeder.ToList();
                 return View(billeder);
@@ -34,7 +34,7 @@ namespace Munin.web.Controllers
         {
             try
             {
-                using (var dbmunin = new ILABNewEntities2())
+                using (var dbmunin = new ILABNew2Entities())
                 {
 
                     int flicks = query.P*query.Size;
@@ -120,7 +120,7 @@ namespace Munin.web.Controllers
 
             try
             {
-                using (ILABNewEntities2 db = new ILABNewEntities2())
+                using (ILABNew2Entities db = new ILABNew2Entities())
                 {
                     vm.JournalList =
                         db.Journaler.Select(x => new UISelectItem() {Value = x.JournalID, Text = x.JournalNb}).ToList();
@@ -196,27 +196,40 @@ namespace Munin.web.Controllers
 
             try
             {
-                using (var db = new ILABNewEntities2())
+                using (var db = new ILABNew2Entities())
                 {
-                    var dbModel = new Billeder()
-                    {
-                        Datering = model.Datering,
-                        Billedindex = model.Billedindex,
-                        CDnr = model.CDnr,
-                        Format = model.Format,
-                        Fotograf = model.Fotograf,
-                        Journal = model.Journal,
-                        JournalID = model.JournalID,
-                        Klausul = model.Klausul,
-                        Materiale = model.Materiale,
-                        Note = model.Note,
-                        Numordning = model.Numordning,
-                        Ophavsret = model.Ophavsret,
-                        Ordning = model.Ordning,
-                        Placering = model.Placering
-                    };
 
-                    db.Billeder.Add(dbModel);
+                    var dbModel = new Billeder();
+
+                    if (model.BilledID > 0)
+                    {
+                        dbModel = await db.Billeder.FirstOrDefaultAsync(x => x.BilledID == model.BilledID);
+                        if (dbModel == null)
+                            throw new Exception(string.Format("Billede med id {0} blev ikke fundet", model.BilledID));
+                    }
+
+
+                    dbModel.Datering = model.Datering;
+                    dbModel.Billedindex = model.Billedindex;
+                    dbModel.CDnr = model.CDnr;
+                    dbModel.Format = model.Format;
+                    dbModel.Fotograf = model.Fotograf;
+                    dbModel.Journal = model.Journal;
+                    dbModel.JournalID = model.JournalID;
+                    dbModel.Klausul = model.Klausul;
+                    dbModel.Materiale = model.Materiale;
+                    dbModel.Note = model.Note;
+                    dbModel.Numordning = model.Numordning;
+                    dbModel.Ophavsret = model.Ophavsret;
+                    dbModel.Ordning = model.Ordning;
+                    dbModel.Placering = model.Placering;
+
+                    if (model.BilledID > 0)
+                        db.Entry(dbModel).State = EntityState.Modified;
+                    else
+                    {
+                        db.Billeder.Add(dbModel);
+                    }
 
                     await db.SaveChangesAsync();
                     return Json(new {success = true, message = ""});
@@ -246,7 +259,7 @@ namespace Munin.web.Controllers
         // GET: Billeders/Details/5
         public ActionResult Details(int? id)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 if (id == null)
                 {
@@ -281,7 +294,7 @@ namespace Munin.web.Controllers
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        using (var db = new ILABNewEntities2())
+        //        using (var db = new ILABNew2Entities())
         //        {
         //            db.Billeder.Add(billeder);
         //            db.SaveChanges();
@@ -296,7 +309,7 @@ namespace Munin.web.Controllers
         // GET: Billeders/Edit/5
         public ActionResult Edit(int? id)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 if (id == null)
                 {
@@ -319,7 +332,7 @@ namespace Munin.web.Controllers
         //[ValidateAntiForgeryToken]
         //public ActionResult Edit([Bind(Include = "BilledID,Journal,Billedindex,Numordning,Ordning,CDnr,Fotograf,Format,Materiale,Placering,Ophavsret,Klausul,Datering,Indlevering,Note,JournalID")] Billeder billeder)
         //{
-        //    using (var db = new ILABNewEntities2())
+        //    using (var db = new ILABNew2Entities())
         //    {
 
         //        if (ModelState.IsValid)
@@ -340,7 +353,7 @@ namespace Munin.web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 Billeder billeder = db.Billeder.Find(id);
                 if (billeder == null)
@@ -356,7 +369,7 @@ namespace Munin.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 Billeder billeder = db.Billeder.Find(id);
                 db.Billeder.Remove(billeder);
@@ -367,7 +380,7 @@ namespace Munin.web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            using (var db = new ILABNewEntities2())
+            using (var db = new ILABNew2Entities())
             {
                 if (disposing)
                 {

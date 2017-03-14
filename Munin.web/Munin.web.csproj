@@ -143,60 +143,6 @@
     <Compile Include="Controllers\JournalersController.cs" />
     <Compile Include="Controllers\KirkebogsController.cs" />
     <Compile Include="Controllers\KortsController.cs" />
-    <Compile Include="Models\Arkivalie.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ArkivFond.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Aviser.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bibliotek.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Billeder.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Giver.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Journaler.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Kirkebog.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Kort.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Matrikler.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MuninDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MuninDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MuninDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MuninDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MuninDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Sekvenser.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\udklip.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserTbl.cs">
-      <DependentUpon>MuninDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\BibliotekVm.cs" />
     <Compile Include="ViewModels\BillederDto.cs" />
     <Compile Include="ViewModels\BilledeListViewModel.cs" />
@@ -211,6 +157,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="ViewModels\UdklipDto.cs" />
     <Compile Include="ViewModels\UdklipViewModel.cs" />
+    <Compile Include="ViewModels\UdklipVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -237,16 +184,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\RavenIcon.png" />
-    <Content Include="Models\MuninDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MuninDataModel.edmx</DependentUpon>
-      <LastGenOutput>MuninDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\MuninDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MuninDataModel.edmx</DependentUpon>
-      <LastGenOutput>MuninDataModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -322,13 +259,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\datetimepicker.css.map" />
-    <EntityDeploy Include="Models\MuninDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MuninDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\MuninDataModel.edmx.diagram">
-      <DependentUpon>MuninDataModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_da-dk.js" />
     <Content Include="Scripts\i18n\angular-locale_da-gl.js" />
@@ -473,9 +403,11 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Billeders\form.cshtml" />
     <Content Include="Views\Biblioteks\_form.cshtml" />
+    <Content Include="Views\udklips\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -484,6 +416,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Munin.DAL\Munin.DAL.csproj">
+      <Project>{01a6bc58-30bd-43fc-a5aa-e2befcdf406f}</Project>
+      <Name>Munin.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

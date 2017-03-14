@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.Pkcs;
 using System.Web;
 using System.Web.Mvc;
-using Munin.web.Models;
+using Munin.DAL.Models;
 
 namespace Munin.web.ViewModels
 {

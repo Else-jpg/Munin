@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Jørgen\Documents\Visual Studio 2015\Projects\Munin\Munin.web\Models\MuninDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\JørgenVigJensen\Documents\Visual Studio 2017\Projects\Munin\Munin.web\Models\MuninDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

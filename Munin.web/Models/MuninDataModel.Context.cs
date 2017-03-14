@@ -36,7 +36,7 @@ namespace Munin.web.Models
         public virtual DbSet<Kort> Kort { get; set; }
         public virtual DbSet<Matrikler> Matrikler { get; set; }
         public virtual DbSet<Sekvenser> Sekvenser { get; set; }
-        public virtual DbSet<udklip> udklip { get; set; }
+        public virtual DbSet<Udklip> udklip { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
     }
 }

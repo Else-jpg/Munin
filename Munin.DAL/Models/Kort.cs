@@ -7,14 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Munin.web.Models
+namespace Munin.DAL.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Kort
     {
-        public int KortID { get; set; }
         public string Kortnr { get; set; }
         public string Journal { get; set; }
         public string Navn { get; set; }
@@ -30,6 +29,7 @@ namespace Munin.web.Models
         public string Indlevering { get; set; }
         public string Note { get; set; }
         public Nullable<int> JournalID { get; set; }
+        public int KortID { get; set; }
     
         public virtual Journaler Journaler { get; set; }
     }

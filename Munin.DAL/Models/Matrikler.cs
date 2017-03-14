@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Munin.web.Models
+namespace Munin.DAL.Models
 {
     using System;
     using System.Collections.Generic;
